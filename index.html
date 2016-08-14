@@ -72,7 +72,7 @@
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/前端工程化/">前端工程化</a>
+    <a class="article-category-link" href="/categories/前端规范/">前端规范</a>
   </div>
 
   </div>
@@ -124,56 +124,41 @@
 </li>
 <li><p>制定检测规则文件<br> 在根目录下创建.eslintrc文件：</p>
  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">touch</span> <span class="class">.eslintrc</span></span><br></pre></td></tr></table></figure>
+<p> .eslintrc：</p>
+ <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">rules</span>": <span class="value">&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p> webpack.config.js</p>
+ <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">entry</span>:<span class="rules">&#123;&#125;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">eslint</span>: <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">configFile</span>:<span class="value"> <span class="string">'./.eslintrc'</span></span><br><span class="line">    </span></span></span>&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<pre><code>.eslintrc：
-
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">rules</span>": <span class="value">&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-
-
-webpack.config.js：
-
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">entry</span>:<span class="rules">&#123;&#125;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">eslint</span>: <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">configFile</span>:<span class="value"> <span class="string">'./.eslintrc'</span></span><br><span class="line">    </span></span></span>&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-</code></pre><ol>
 <li><p>如果现在启动app，会看到The keyword ‘import’ is reserved的解析错误。这是因为eslint还不知道通过Babel使用的ES6特性(比如import) ,我们需要通过babel-eslint来检测ES6代码。</p>
  <figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> babel-eslint</span><br></pre></td></tr></table></figure>
+<p> 修改.eslintrc：</p>
+ <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">parser</span>": <span class="value"><span class="string">"babel-eslint"</span></span>,</span><br><span class="line">    "<span class="attribute">rules</span>": <span class="value">&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<pre><code>修改.eslintrc：
-
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">parser</span>": <span class="value"><span class="string">"babel-eslint"</span></span>,</span><br><span class="line">    "<span class="attribute">rules</span>": <span class="value">&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-</code></pre><ol>
 <li><p>添加ESLint规则</p>
  <figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">   <span class="string">"rules"</span>: &#123;</span><br><span class="line">       <span class="string">"eqeqeq"</span>: [<span class="number">2</span>, <span class="string">"allow-null"</span>]</span><br><span class="line">   &#125;</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
+<p> 这条规则表示：使用 === 替代 == allow-null允许null和undefined==。<br>启动app，会看到不规范代码的提示。</p>
 </li>
-</ol>
-<pre><code>这条规则表示：使用 === 替代 == allow-null允许null和undefined==。
-</code></pre><p>启动app，会看到不规范代码的提示。</p>
-<ol>
-<li><p>扩展ESLint规则  </p>
-<p> 我们不想每次都指定这些规则，所幸已经有很多符合最佳实践的规则。其中之一就是Airbnb Style Guide，此外Airbnb还开源了他们自己的ESlint配置。<br>安装Airbnb的lint规则：</p>
+<li><p>扩展ESLint规则<br> 我们不想每次都指定这些规则，所幸已经有很多符合最佳实践的规则。其中之一就是Airbnb Style Guide，此外Airbnb还开源了他们自己的ESlint配置。<br>安装Airbnb的lint规则：</p>
  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> eslint-config-airbnb eslint-<span class="keyword">plugin</span>-<span class="keyword">import</span> <span class="comment">--save-dev</span></span></span><br></pre></td></tr></table></figure>
+<p> 应用Airbnb的lint规则：</p>
+ <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="rules">&#123;</span><br><span class="line">	<span class="rule"><span class="attribute">parser</span>:<span class="value"> <span class="string">"babel-eslint"</span>,</span><br><span class="line"> 	    <span class="string">"extends"</span>: <span class="string">"airbnb"</span>,</span><br><span class="line">	<span class="string">"rules"</span>: &#123;</span><br><span class="line"> 			<span class="string">"eqeqeq"</span>: [<span class="number">2</span>, <span class="string">"allow-null"</span>]</span><br><span class="line">	</span></span></span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<p>应用Airbnb的lint规则：<br>    <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="rules">&#123;</span><br><span class="line">	<span class="rule"><span class="attribute">parser</span>:<span class="value"> <span class="string">"babel-eslint"</span>,</span><br><span class="line"> 	    <span class="string">"extends"</span>: <span class="string">"airbnb"</span>,</span><br><span class="line">	<span class="string">"rules"</span>: &#123;</span><br><span class="line"> 			<span class="string">"eqeqeq"</span>: [<span class="number">2</span>, <span class="string">"allow-null"</span>]</span><br><span class="line">	</span></span></span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li><p>屏蔽规则  </p>
-<p> 如果我们不想看到no-unused-vars(为使用过的变量定义)的警告，可以：</p>
+<li><p>屏蔽规则<br> 如果我们不想看到no-unused-vars(为使用过的变量定义)的警告，可以：</p>
  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">parser</span>:<span class="value"> <span class="string">"babel-eslint"</span>,</span><br><span class="line"> 		<span class="string">"extends"</span>: <span class="string">"airbnb"</span>,</span><br><span class="line">	<span class="string">"rules"</span>: &#123;</span><br><span class="line">		<span class="string">"no-unused-vars"</span>: <span class="number">0</span>,</span><br><span class="line"> 			<span class="string">"eqeqeq"</span>: [<span class="number">2</span>, <span class="string">"allow-null"</span>]</span><br><span class="line">	</span></span></span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 这种是全局的配置，如果是只想在某些文件中禁止检测，可以如下修改(通过注释的方式)：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*eslint-disable no-unused-vars*/</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line"><span class="comment">/*eslint-enable no-unused-vars*/</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<p>这种是全局的配置，如果是只想在某些文件中禁止检测，可以如下修改(通过注释的方式)：<br>    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*eslint-disable no-unused-vars*/</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line"><span class="comment">/*eslint-enable no-unused-vars*/</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>使用pre-commit钩子<br>使用了pre-commit钩子后，在git commit时会自动检测代码规范，如果有违反规则代码的情况，则commit失败。</li>
+<li><p>使用pre-commit钩子<br> 使用了pre-commit钩子后，在git commit时会自动检测代码规范，如果有违反规则代码的情况，则commit失败。</p>
+</li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/14/在Vue+Babel+Webpack环境中使用ESLint/" data-id="ciruo3j8j0008t1fyqgmyyxci" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/14/在Vue+Babel+Webpack环境中使用ESLint/" data-id="ciruo7bgm0008tffya1mdx40l" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ESLint/">ESLint</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端规范/">前端规范</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ESLint/">ESLint</a></li></ul>
 
     </footer>
   </div>
@@ -213,7 +198,7 @@ webpack.config.js：
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/08/10/JavaScript学习之路-简介/" data-id="ciruo3j7r0000t1fyepwm29ki" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/08/10/JavaScript学习之路-简介/" data-id="ciruo7bfs0000tffy3hbhn3ob" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -234,7 +219,7 @@ webpack.config.js：
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端工程化/">前端工程化</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端规范/">前端规范</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -243,7 +228,7 @@ webpack.config.js：
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESLint/">ESLint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端规范/">前端规范</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESLint/">ESLint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -252,7 +237,7 @@ webpack.config.js：
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ESLint/" style="font-size: 10px;">ESLint</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/前端规范/" style="font-size: 10px;">前端规范</a>
+      <a href="/tags/ESLint/" style="font-size: 10px;">ESLint</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a>
     </div>
   </div>
 
