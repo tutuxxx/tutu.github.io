@@ -146,7 +146,7 @@
 <li><p>屏蔽规则<br> 如果我们不想看到no-unused-vars(为使用过的变量定义)的警告，可以：</p>
  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">parser</span>:<span class="value"> <span class="string">"babel-eslint"</span>,</span><br><span class="line"> 		<span class="string">"extends"</span>: <span class="string">"airbnb"</span>,</span><br><span class="line">	<span class="string">"rules"</span>: &#123;</span><br><span class="line">		<span class="string">"no-unused-vars"</span>: <span class="number">0</span>,</span><br><span class="line"> 			<span class="string">"eqeqeq"</span>: [<span class="number">2</span>, <span class="string">"allow-null"</span>]</span><br><span class="line">	</span></span></span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p> 这种是全局的配置，如果是只想在某些文件中禁止检测，可以如下修改(通过注释的方式)：</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*eslint-disable no-unused-vars*/</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line"><span class="comment">/*eslint-enable no-unused-vars*/</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*eslint-disable no-unused-vars*/</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line"><span class="comment">/*eslint-enable no-unused-vars*/</span></span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span>;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使用pre-commit钩子<br> 使用了pre-commit钩子后，在git commit时会自动检测代码规范，如果有违反规则代码的情况，则commit失败。</p>
 </li>
@@ -155,7 +155,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/14/在Vue+Babel+Webpack环境中使用ESLint/" data-id="ciruo7bgm0008tffya1mdx40l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/14/在Vue+Babel+Webpack环境中使用ESLint/" data-id="ciruo92aq0008ttfyv27emf7g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ESLint/">ESLint</a></li></ul>
@@ -198,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/08/10/JavaScript学习之路-简介/" data-id="ciruo7bfs0000tffy3hbhn3ob" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/08/10/JavaScript学习之路-简介/" data-id="ciruo929z0000ttfywy4da399" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
