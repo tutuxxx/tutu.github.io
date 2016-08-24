@@ -3,21 +3,36 @@
 <head>
   <meta charset="utf-8">
   
-  <title>life | TuTu</title>
+  <title>NPM安装时readECONNRESET的解决方法 | TuTu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:type" content="website">
-<meta property="og:title" content="life">
-<meta property="og:url" content="http://yoursite.com/life/index.html">
+  <meta name="description" content="最近在通过NPM安装openlayers的时候遇到问题，报错如下：
+1ERR! closure-util read ECONNRESET
+解决方法：
+12//将包地址从https切换到httpnpm config set registry http://registry.npmjs.org/
+然后:
+1npm install openlayers --save
+轻松搞定！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NPM安装时readECONNRESET的解决方法">
+<meta property="og:url" content="http://yoursite.com/2016/08/24/NPM安装时readECONNRESET的解决方法/index.html">
 <meta property="og:site_name" content="TuTu">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-06-30T08:37:09.000Z">
+<meta property="og:description" content="最近在通过NPM安装openlayers的时候遇到问题，报错如下：
+1ERR! closure-util read ECONNRESET
+解决方法：
+12//将包地址从https切换到httpnpm config set registry http://registry.npmjs.org/
+然后:
+1npm install openlayers --save
+轻松搞定！">
+<meta property="og:updated_time" content="2016-08-24T11:53:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="life">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="NPM安装时readECONNRESET的解决方法">
+<meta name="twitter:description" content="最近在通过NPM安装openlayers的时候遇到问题，报错如下：
+1ERR! closure-util read ECONNRESET
+解决方法：
+12//将包地址从https切换到httpnpm config set registry http://registry.npmjs.org/
+然后:
+1npm install openlayers --save
+轻松搞定！">
   
     <link rel="alternative" href="/atom.xml" title="TuTu" type="application/atom+xml">
   
@@ -67,12 +82,16 @@ Quick">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-NPM安装时readECONNRESET的解决方法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/life/index.html" class="article-date">
-  <time datetime="2016-08-10T16:03:25.000Z" itemprop="datePublished">2016-08-11</time>
+    <a href="/2016/08/24/NPM安装时readECONNRESET的解决方法/" class="article-date">
+  <time datetime="2016-08-24T11:17:52.000Z" itemprop="datePublished">2016-08-24</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/NPM/">NPM</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -81,7 +100,7 @@ Quick">
         
   
     <h1 class="article-title" itemprop="name">
-      life
+      NPM安装时readECONNRESET的解决方法
     </h1>
   
 
@@ -89,26 +108,36 @@ Quick">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>最近在通过NPM安装openlayers的时候遇到问题，报错如下：</p>
+<pre><code><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ERR</span>! closure-util <span class="keyword">read</span> ECONNRESET</div></pre></td></tr></table></figure>
+</code></pre><p>解决方法：</p>
+<pre><code><figure class="highlight tcl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//将包地址从https切换到<span class="keyword">http</span></div><div class="line">npm config <span class="keyword">set</span> <span class="keyword">registry</span> <span class="keyword">http</span>://<span class="keyword">registry</span>.npmjs.org/</div></pre></td></tr></table></figure>
+</code></pre><p>然后:</p>
+<pre><code><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">install</span> openlayers <span class="comment">--save</span></div></pre></td></tr></table></figure>
+</code></pre><p>轻松搞定！</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/life/index.html" data-id="cis8ue7o40003q2os1z64o86l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/24/NPM安装时readECONNRESET的解决方法/" data-id="cis8ue7o20002q2osu7khkg7i" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NPM/">NPM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Openlayers/">Openlayers</a></li></ul>
+
     </footer>
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2016/08/18/Webpack使用指南/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Webpack使用指南</div>
+    </a>
+  
+</nav>
+
   
 </article>
 
