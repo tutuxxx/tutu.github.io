@@ -21,7 +21,7 @@
 
 
 原因：因为webpack在模块化引入时每个文件的作用域是封闭的，导致加载ol3-layerswitcher时引">
-<meta property="og:updated_time" content="2016-08-26T03:13:35.000Z">
+<meta property="og:updated_time" content="2016-08-26T03:17:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack中使用ol3-layerswitcher">
 <meta name="twitter:description" content="在webpack中用如下代码模块化引入ol3-layerswitcher时报错：ol is not defined;
@@ -115,6 +115,7 @@
   <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line"><span class="attr">    resolve:</span> &#123;</div><div class="line"><span class="attr">        root:</span> [],</div><div class="line"><span class="attr">        alias:</span> &#123;</div><div class="line"><span class="attr">            openlayers:</span> path.resolve(__dirname, <span class="string">'../node_modules/openlayers/dist/ol.js'</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line"><span class="attr">    plugins:</span> [</div><div class="line">        new webpack.ProvidePlugin(&#123;</div><div class="line"><span class="attr">              ol:</span> <span class="string">'openlayers'</span></div><div class="line">        &#125;)</div><div class="line">    ]</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 </li>
 </ul>
+<p>这个插件将ol暴露给所有模块，其它模块不用再显式引入openlayers了；只要模块的代码中出现了ol，webpack就会自动将openlayers注入。</p>
 <ul>
 <li><p>然后在vue文件中引入即可：</p>
   <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> ol <span class="keyword">from</span> <span class="string">'openlayers'</span>;</div><div class="line"><span class="keyword">import</span> <span class="string">'ol3-layerswitcher/src/ol3-layerswitcher'</span>;</div></pre></td></tr></table></figure>
@@ -124,10 +125,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/25/webpack中使用ol3-layerswitcher/" data-id="cisb6o4ag0000etosdk4dno5j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/25/webpack中使用ol3-layerswitcher/" data-id="cisb6u1py000dfiosw8pn8ict" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Openlayers/">Openlayers</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Openlayers/">Openlayers</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
 
     </footer>
   </div>
@@ -163,7 +164,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESLint/">ESLint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NPM/">NPM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NightWatch/">NightWatch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openlayers/">Openlayers</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Selenium/">Selenium</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESLint/">ESLint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NPM/">NPM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NightWatch/">NightWatch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openlayers/">Openlayers</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Selenium/">Selenium</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -172,7 +173,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ESLint/" style="font-size: 10px;">ESLint</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/NPM/" style="font-size: 10px;">NPM</a> <a href="/tags/NightWatch/" style="font-size: 10px;">NightWatch</a> <a href="/tags/Openlayers/" style="font-size: 20px;">Openlayers</a> <a href="/tags/Selenium/" style="font-size: 10px;">Selenium</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+      <a href="/tags/ESLint/" style="font-size: 10px;">ESLint</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/NPM/" style="font-size: 10px;">NPM</a> <a href="/tags/NightWatch/" style="font-size: 10px;">NightWatch</a> <a href="/tags/Openlayers/" style="font-size: 20px;">Openlayers</a> <a href="/tags/Selenium/" style="font-size: 10px;">Selenium</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a>
     </div>
   </div>
 
