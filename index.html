@@ -65,6 +65,77 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Mac下使用siege做系统压力测试" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/31/Mac下使用siege做系统压力测试/" class="article-date">
+  <time datetime="2016-08-31T11:54:36.000Z" itemprop="datePublished">2016-08-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统测试/">系统测试</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/31/Mac下使用siege做系统压力测试/">Mac下使用siege做系统压力测试</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Siege是一款开源的压力测试工具，设计用于评估WEB应用在压力下的承受能力。可以根据配置对一个WEB站点进行多用户的并发访问，记录每个用户所有请求过程的相应时间，并在一定数量的并发访问下重复进行。siege可以从您选择的预置列表中请求随机的URL。所以siege可用于仿真用户请求负载，而ab则不能。但不要使用siege来执行最高性能基准调校测试，这方面ab就准确很多。</p>
+<ol>
+<li>安装<a href="https://www.macports.org/install.php" target="_blank" rel="external">macports</a>,用dmg方式：</li>
+<li><p>将/opt/local/bin和/opt/local/sbin添加到$PATH搜索路径中,编辑/etc/profile文件中，加上:</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> PATH=/opt/<span class="built_in">local</span>/bin:<span class="variable">$PATH</span></div><div class="line"><span class="built_in">export</span> PATH=/opt/<span class="built_in">local</span>/sbin:<span class="variable">$PATH</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>安装siege</p>
+ <figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo port <span class="keyword">install</span> siege</div></pre></td></tr></table></figure>
+</li>
+<li><p>并发测试</p>
+<ul>
+<li><p>参数说明</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">siege <span class="comment">--help</span></div><div class="line">Usage: siege [options]</div><div class="line">       siege [options] URL</div><div class="line">       siege -g URL</div><div class="line">Options:</div><div class="line">  -V, <span class="comment">--version             VERSION, prints the version number.</span></div><div class="line">  -h, <span class="comment">--help                HELP, prints this section.</span></div><div class="line">  -C, <span class="comment">--config              CONFIGURATION, show the current config.</span></div><div class="line">                            <span class="comment">#在屏幕上打印显示出当前的配置,配置是包括在他的配置文件$HOME/.siegerc中,</span></div><div class="line">                            <span class="comment">#可以编辑里面的参数,这样每次siege 都会按照它运行.</span></div><div class="line">  -v, <span class="comment">--verbose             VERBOSE, prints notification to screen.</span></div><div class="line">                            <span class="comment">#运行时能看到详细的运行信息</span></div><div class="line">  -q, <span class="comment">--quiet               QUIET turns verbose off and suppresses output.</span></div><div class="line">  -g, <span class="comment">--get                 GET, pull down HTTP headers and display the</span></div><div class="line">                            <span class="keyword">transaction</span>. Great <span class="keyword">for</span> <span class="built_in">application</span> debugging.</div><div class="line">  -c, <span class="comment">--concurrent=NUM      CONCURRENT users, default is 10</span></div><div class="line">                            <span class="comment">#模拟有n个用户在同时访问,n不要设得太大,因为越大,siege 消耗本地机器的资源越多</span></div><div class="line">  -i, <span class="comment">--internet            INTERNET user simulation, hits URLs randomly.</span></div><div class="line">                            <span class="comment">#随机访问urls.txt中的url列表项,以此模拟真实的访问情况(随机性)</span></div><div class="line">  -b, <span class="comment">--benchmark           BENCHMARK: no delays between requests.</span></div><div class="line">  -t, <span class="comment">--time=NUMm           TIMED testing where "m" is modifier S, M, or H</span></div><div class="line">                            ex: <span class="comment">--time=1H, one hour test.</span></div><div class="line">                            <span class="comment">#持续运行siege ‘n’秒(如10S),分钟(10M),小时(10H)</span></div><div class="line">  -r, <span class="comment">--reps=NUM            REPS, number of times to run the test.</span></div><div class="line">                            <span class="comment">#重复运行测试n次,不能与 -t同时存在</span></div><div class="line">  -f, <span class="comment">--file=FILE           FILE, select a specific URLS FILE.</span></div><div class="line">                            <span class="comment">#指定用urls文件,默认为siege安装目录下的etc/urls.txt</span></div><div class="line">                            <span class="comment">#urls.txt文件：是很多行待测试URL的列表以换行符断开,格式为:</span></div><div class="line">                            <span class="comment">#[protocol://]host.domain.com[:port][path/to/file]</span></div><div class="line">  -R, <span class="comment">--rc=FILE             RC, specify an siegerc file</span></div><div class="line">                            <span class="comment">#指定用特定的siege配置文件来运行,默认的为$HOME/.siegerc</span></div><div class="line">  -l, <span class="comment">--log[=FILE]          LOG to FILE. If FILE is not specified, the</span></div><div class="line">                            default <span class="keyword">is</span> used: PREFIX/var/siege.<span class="built_in">log</span></div><div class="line">                            <span class="comment">#运行结束,将统计数据保存到日志文件siege.log中,可在.siegerc中自定义日志文件</span></div><div class="line">  -m, <span class="comment">--mark="text"         MARK, mark the log file with a string.</span></div><div class="line">  -d, <span class="comment">--delay=NUM           Time DELAY, random delay before each requst</span></div><div class="line">                            <span class="keyword">between</span> <span class="number">1</span> <span class="keyword">and</span> NUM. (NOT COUNTED IN STATS)</div><div class="line">                            <span class="comment">#hit每个url之间的延迟,在0-n之间</span></div><div class="line">  -H, <span class="comment">--header="text"       Add a header to request (can be many)</span></div><div class="line">  -A, <span class="comment">--user-agent="text"   Sets User-Agent in request</span></div><div class="line">  -T, <span class="comment">--content-type="text" Sets Content-Type in request</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>使用方法</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//以1000并发量重复执行100次</span></div><div class="line">siege -c <span class="number">1000</span> -r <span class="number">100</span> <span class="string">http:</span><span class="comment">//www.baidu.com</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>结果说明</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">Transactions:</span>             <span class="number">30000</span> hits      <span class="meta">#完成30000次处理</span></div><div class="line"><span class="symbol">Availability:</span>            <span class="number">100.00</span> %         <span class="meta">#成功率</span></div><div class="line">Elapsed time:             <span class="number">68.59</span> secs      <span class="meta">#总共使用时间</span></div><div class="line">Data transferred:        <span class="number">817.76</span> MB        <span class="meta">#共数据传输 817.76 MB</span></div><div class="line">Response time:             <span class="number">0.04</span> secs      <span class="meta">#响应时间，显示网络连接的速度</span></div><div class="line">Transaction rate:        <span class="number">437.38</span> trans/<span class="keyword">sec</span> <span class="meta">#平均每秒完成 437.38 次处理</span></div><div class="line"><span class="symbol">Throughput:</span>               <span class="number">11.92</span> MB/<span class="keyword">sec</span>    <span class="meta">#平均每秒传送数据</span></div><div class="line"><span class="symbol">Concurrency:</span>              <span class="number">17.53</span>           <span class="meta">#实际最高并发连接数</span></div><div class="line">Successful transactions:  <span class="number">30000</span>           <span class="meta">#成功处理次数</span></div><div class="line">Failed transactions:          <span class="number">0</span>           <span class="meta">#失败处理次数</span></div><div class="line">Longest transaction:       <span class="number">3.12</span>           <span class="meta">#每次传输所花最长时间</span></div><div class="line">Shortest transaction:      <span class="number">0.00</span>           <span class="meta">#每次传输所花最短时间</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>注意事项</p>
+<ul>
+<li>发送post请求时，url格式为：<a href="http://www.xxxx.com/" target="_blank" rel="external">http://www.xxxx.com/</a> POST p1=v1&amp;p2=v2</li>
+<li>如果url中含有空格和中文，要先进行url编码，否则siege发送的请求url不准确</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/31/Mac下使用siege做系统压力测试/" data-id="cisiovjcr0000q1osuk1ey6x7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/macports/">macports</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/系统测试/">系统测试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-webpack中使用ol3-layerswitcher" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/08/25/webpack中使用ol3-layerswitcher/" class="article-date">
@@ -111,7 +182,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/25/webpack中使用ol3-layerswitcher/" data-id="cisb6u1py000dfiosw8pn8ict" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/25/webpack中使用ol3-layerswitcher/" data-id="cisiotrg20004pzos9beogww8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Openlayers/">Openlayers</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
@@ -165,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/24/NPM安装OL时readECONNRESET的解决方法/" data-id="cisb6u1pi0002fios67f0o802" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/24/NPM安装OL时readECONNRESET的解决方法/" data-id="cisiotrfs0001pzos628wqiy4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NPM/">NPM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Openlayers/">Openlayers</a></li></ul>
@@ -208,7 +279,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/18/Webpack使用指南/" data-id="cisb6u1pp0006fiosv92s1ra4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/18/Webpack使用指南/" data-id="cisiotrg40005pzosm1i8v6vv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
@@ -333,7 +404,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/16/是时候学学前端自动化测试了/" data-id="cisb6u1pw000afiossczdunzx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/16/是时候学学前端自动化测试了/" data-id="cisiotrh1000upzoso2ji0kf8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NightWatch/">NightWatch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Selenium/">Selenium</a></li></ul>
@@ -438,7 +509,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/14/在Vue+Babel+Webpack环境中使用ESLint/" data-id="cisb6u1ps0008fiosil53dzkx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/14/在Vue+Babel+Webpack环境中使用ESLint/" data-id="cisiotrge0007pzosrhrqjxst" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ESLint/">ESLint</a></li></ul>
@@ -489,7 +560,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/08/10/JavaScript学习之路-简介/" data-id="cisb6u1pd0000fiosfj4396px" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/08/10/JavaScript学习之路-简介/" data-id="cisiotrfk0000pzosjkcfu4zb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -510,7 +581,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NPM/">NPM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openlayers/">Openlayers</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端构建/">前端构建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端测试/">前端测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端规范/">前端规范</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NPM/">NPM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openlayers/">Openlayers</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端构建/">前端构建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端测试/">前端测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端规范/">前端规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -519,7 +590,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESLint/">ESLint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NPM/">NPM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NightWatch/">NightWatch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openlayers/">Openlayers</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Selenium/">Selenium</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESLint/">ESLint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NPM/">NPM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NightWatch/">NightWatch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openlayers/">Openlayers</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Selenium/">Selenium</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macports/">macports</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统测试/">系统测试</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -528,7 +599,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ESLint/" style="font-size: 10px;">ESLint</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/NPM/" style="font-size: 10px;">NPM</a> <a href="/tags/NightWatch/" style="font-size: 10px;">NightWatch</a> <a href="/tags/Openlayers/" style="font-size: 20px;">Openlayers</a> <a href="/tags/Selenium/" style="font-size: 10px;">Selenium</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a>
+      <a href="/tags/ESLint/" style="font-size: 10px;">ESLint</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/NPM/" style="font-size: 10px;">NPM</a> <a href="/tags/NightWatch/" style="font-size: 10px;">NightWatch</a> <a href="/tags/Openlayers/" style="font-size: 20px;">Openlayers</a> <a href="/tags/Selenium/" style="font-size: 10px;">Selenium</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/macports/" style="font-size: 10px;">macports</a> <a href="/tags/系统测试/" style="font-size: 10px;">系统测试</a>
     </div>
   </div>
 
@@ -537,7 +608,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -547,6 +618,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/08/31/Mac下使用siege做系统压力测试/">Mac下使用siege做系统压力测试</a>
+          </li>
         
           <li>
             <a href="/2016/08/25/webpack中使用ol3-layerswitcher/">webpack中使用ol3-layerswitcher</a>
@@ -562,10 +637,6 @@
         
           <li>
             <a href="/2016/08/16/是时候学学前端自动化测试了/">是时候学学前端自动化测试了</a>
-          </li>
-        
-          <li>
-            <a href="/2016/08/14/在Vue+Babel+Webpack环境中使用ESLint/">在Vue+Babel+Webpack环境中使用ESLint</a>
           </li>
         
       </ul>
