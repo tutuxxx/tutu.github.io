@@ -3,17 +3,30 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: JavaScript | TuTu</title>
+  <title>Git在本地及远程仓库中实现版本回退 | TuTu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="IF YOU REALLY WANT IT">
-<meta property="og:type" content="website">
-<meta property="og:title" content="TuTu">
-<meta property="og:url" content="http://yoursite.com/categories/JavaScript/index.html">
+  <meta name="description" content="通过使用GIT版本恢复命令reset，可以回退版本。
+reset命令有3种方式：
+git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息　　
+git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可　　
+g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git在本地及远程仓库中实现版本回退">
+<meta property="og:url" content="http://yoursite.com/2016/08/31/Git在本地及远程仓库中实现版本回退/index.html">
 <meta property="og:site_name" content="TuTu">
-<meta property="og:description" content="IF YOU REALLY WANT IT">
+<meta property="og:description" content="通过使用GIT版本恢复命令reset，可以回退版本。
+reset命令有3种方式：
+git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息　　
+git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可　　
+g">
+<meta property="og:updated_time" content="2016-09-02T02:54:58.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TuTu">
-<meta name="twitter:description" content="IF YOU REALLY WANT IT">
+<meta name="twitter:title" content="Git在本地及远程仓库中实现版本回退">
+<meta name="twitter:description" content="通过使用GIT版本恢复命令reset，可以回退版本。
+reset命令有3种方式：
+git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息　　
+git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可　　
+g">
   
     <link rel="alternative" href="/atom.xml" title="TuTu" type="application/atom+xml">
   
@@ -63,39 +76,94 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/08/10/JavaScript学习之路-简介/" class="archive-article-date">
-  <time datetime="2015-08-10T15:57:26.000Z" itemprop="datePublished">8月 10</time>
+        <section id="main"><article id="post-Git在本地及远程仓库中实现版本回退" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/31/Git在本地及远程仓库中实现版本回退/" class="article-date">
+  <time datetime="2016-08-31T11:54:36.000Z" itemprop="datePublished">2016-08-31</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/版本控制/">版本控制</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/08/10/JavaScript学习之路-简介/">JavaScript学习之路-简介</a>
+    <h1 class="article-title" itemprop="name">
+      Git在本地及远程仓库中实现版本回退
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通过使用GIT版本恢复命令reset，可以回退版本。</p>
+<p>reset命令有3种方式：</p>
+<p>git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息　　</p>
+<p>git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可　　</p>
+<p>git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容　　　　</p>
+<p>以下是一些reset的示例：</p>
+<p>#回退所有内容到上一个版本　　　　</p>
+<p>git　　reset　　HEAD^　　　　　　</p>
+<p>#回退a.py这个文件的版本到上一个版本　　　　　　</p>
+<p>git　　reset　　HEAD^　　a.py　　　　　　</p>
+<p>#向前回退到第3个版本　　　　　　</p>
+<p>git　　reset　　–soft　　HEAD~3　　　　　　</p>
+<p>#将本地的状态回退到和远程的一样　　　　　　</p>
+<p>git　　reset　　–hard　　origin/master　　　　　　</p>
+<p>#回退到某个版本　　　　　　</p>
+<p>git　　reset　　057d　　　　　　</p>
+<p>#回退到上一次提交的状态，按照某一次的commit完全反向的进行一次commit　　　　　　</p>
+<p>git　　revert　　HEAD　</p>
+<p>如果我们某次修改了某些内容，并且已经commit到本地仓库，而且已经push到远程仓库了</p>
+<p>这种情况下，我们想把本地和远程仓库都回退到某个版本，该怎么做呢？</p>
+<p>前面讲到的git reset只是在本地仓库中回退版本，而远程仓库的版本不会变化</p>
+<p>这样，即时本地reset了，但如果再git pull，那么，远程仓库的内容又会和本地之前版本的内容进行merge</p>
+<p>这并不是我们想要的东西，这时可以有2种办法来解决这个问题：</p>
+<p>直接在远程server的仓库目录下，执行git reset –soft 10efa来回退。注意：在远程不能使用mixed或hard参数</p>
+<p>在本地直接把远程的master分支给删除，然后再把reset后的分支内容给push上去，如下：</p>
+<p>#新建old_master分支做备份　　　　</p>
+<p>git　　branch　　old_master　　　　</p>
+<p>#push到远程　　　　</p>
+<p>git　　push　　origin　　old_master:old_master　　　</p>
+<p>#本地仓库回退到某个版本　　</p>
+<p>git　　reset　　–hard　　bae168　</p>
+<p>#删除远程的master分支</p>
+<p>#如果使用的是bitbucket，先要在项目的设置里面将主分支改为其他，才可删除master分支</p>
+<p>git　　push　　origin　　:master　</p>
+<p>#重新创建master分支　</p>
+<p>git　　push　　origin　　master</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/31/Git在本地及远程仓库中实现版本回退/" data-id="cisl63wdo0002sxostzox33r9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/版本回退/">版本回退</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/08/31/Mac下使用siege做系统压力测试/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Mac下使用siege做系统压力测试</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
 </section>
         
           <aside id="sidebar">
