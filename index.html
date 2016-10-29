@@ -65,6 +65,187 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ES6笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/08/ES6笔记/" class="article-date">
+  <time datetime="2016-10-08T15:54:36.000Z" itemprop="datePublished">2016-10-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ES6/">ES6</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/08/ES6笔记/">ES6笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ECMAScript 6（以下简称ES6）是JavaScript语言的下一代标准。因为当前版本的ES6是在2015年发布的，所以又称ECMAScript 2015。</p>
+<p>babel是常用的es6转换器，这儿提供一个学习使用的es6在线编辑工具：<a href="http://www.es6fiddle.net/" target="_blank" rel="external">ES6在线编辑器</a>。</p>
+<ol>
+<li>let, const</li>
+</ol>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var <span class="built_in">name</span> = <span class="string">'zach'</span></div><div class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</div><div class="line">    var <span class="built_in">name</span> = <span class="string">'obama'</span></div><div class="line">    console.<span class="built_in">log</span>(<span class="built_in">name</span>)  <span class="comment">//obama</span></div><div class="line">    break</div><div class="line">&#125;</div><div class="line">console.<span class="built_in">log</span>(<span class="built_in">name</span>)  <span class="comment">//obama</span></div></pre></td></tr></table></figure>
+<p>由于ES5只有全局作用域和函数作用域，没有块级作用域，这带来很多不合理的场景。第一种场景就是你现在看到的内层变量覆盖外层变量。而let则实际上为JavaScript新增了块级作用域。用它所声明的变量，只在let命令所在的代码块内有效。<br><figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">let <span class="built_in">name</span> = <span class="string">'zach'</span></div><div class="line"></div><div class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</div><div class="line">    let <span class="built_in">name</span> = <span class="string">'obama'</span></div><div class="line">    console.<span class="built_in">log</span>(<span class="built_in">name</span>)  <span class="comment">//obama</span></div><div class="line">    break</div><div class="line">&#125;</div><div class="line"></div><div class="line">console.<span class="built_in">log</span>(<span class="built_in">name</span>)  <span class="comment">//zach</span></div></pre></td></tr></table></figure></p>
+<p>另外一个var带来的不合理场景就是用来计数的循环变量泄露为全局变量，看下面的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</div><div class="line">  a[i] = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i);</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line">a[<span class="number">6</span>](); <span class="comment">// 10</span></div></pre></td></tr></table></figure></p>
+<p>上面代码中，变量i是var声明的，在全局范围内都有效。所以每一次循环，新的i值都会覆盖旧值，导致最后输出的是最后一轮的i的值。而使用let则不会出现这个问题。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</div><div class="line">  a[i] = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i);</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line">a[<span class="number">6</span>](); <span class="comment">// 6</span></div></pre></td></tr></table></figure></p>
+<p>再来看一个更常见的例子，了解下如果不用ES6，而用闭包如何解决这个问题。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> clickBoxs = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.clickBox'</span>)</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; clickBoxs.length; i++)&#123;</div><div class="line">    clickBoxs[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(i)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们本来希望的是点击不同的clickBox，显示不同的i，但事实是无论我们点击哪个clickBox，输出的都是5。下面我们来看下，如何用闭包搞定它。<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">iteratorFactory</span><span class="params">(i)</span>&#123;</span></div><div class="line">    var onclick = <span class="function"><span class="keyword">function</span><span class="params">(e)</span>&#123;</span></div><div class="line">        console.<span class="built_in">log</span>(<span class="built_in">i</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> onclick;</div><div class="line">&#125;</div><div class="line">var clickBoxs = document.querySelectorAll(<span class="string">'.clickBox'</span>)</div><div class="line"><span class="keyword">for</span> (var <span class="built_in">i</span> = <span class="number">0</span>; <span class="built_in">i</span> &lt; clickBoxs.<span class="built_in">length</span>; <span class="built_in">i</span>++)&#123;</div><div class="line">    clickBoxs[i].onclick = iteratorFactory(i)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>const也用来声明变量，但是声明的是常量。一旦声明，常量的值就不能改变。<br><figure class="highlight monkey"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="built_in">PI</span> = Math.<span class="built_in">PI</span></div><div class="line"></div><div class="line"><span class="built_in">PI</span> = <span class="number">23</span> //<span class="keyword">Module</span> build failed: SyntaxError: /es6/app.js: <span class="string">"PI"</span> is read-only</div></pre></td></tr></table></figure></p>
+<p>当我们尝试去改变用const声明的常量时，浏览器就会报错。const有一个很好的应用场景，就是当我们引用第三方库的时声明的变量，用const来声明可以避免未来不小心重命名而导致出现bug：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> monent = <span class="built_in">require</span>(<span class="string">'moment'</span>)</div></pre></td></tr></table></figure></p>
+<ol>
+<li>class, extends, super</li>
+</ol>
+<p>这三个特性涉及了ES5中最令人头疼的的几个部分：原型、构造函数，继承…你还在为它们复杂难懂的语法而烦恼吗？你还在为指针到底指向哪里而纠结万分吗？</p>
+<p>有了ES6我们不再烦恼！</p>
+<p>ES6提供了更接近传统语言的写法，引入了Class（类）这个概念。新的class写法让对象原型的写法更加清晰、更像面向对象编程的语法，也更加通俗易懂。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>()&#123;</div><div class="line">        <span class="keyword">this</span>.type = <span class="string">'animal'</span></div><div class="line">    &#125;</div><div class="line">    says(say)&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.type + <span class="string">' says '</span> + say)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">let animal = <span class="keyword">new</span> <span class="type">Animal</span>()</div><div class="line">animal.says(<span class="symbol">'hell</span>o') <span class="comment">//animal says hello</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</div><div class="line">    constructor()&#123;</div><div class="line">        <span class="keyword">super</span>()</div><div class="line">        <span class="keyword">this</span>.<span class="keyword">type</span> = <span class="symbol">'ca</span>t'</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">let cat = <span class="keyword">new</span> <span class="type">Cat</span>()</div><div class="line">cat.says(<span class="symbol">'hell</span>o') <span class="comment">//cat says hello</span></div></pre></td></tr></table></figure>
+<p>上面代码首先用class定义了一个“类”，可以看到里面有一个constructor方法，这就是构造方法，而this关键字则代表实例对象。简单地说，constructor内定义的方法和属性是实例对象自己的，而constructor外定义的方法和属性则是所有实例对象可以共享的。</p>
+<p>Class之间可以通过extends关键字实现继承，这比ES5的通过修改原型链实现继承，要清晰和方便很多。上面定义了一个Cat类，该类通过extends关键字，继承了Animal类的所有属性和方法。</p>
+<p>super关键字，它指代父类的实例（即父类的this对象）。子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象。</p>
+<p>ES6的继承机制，实质是先创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this。</p>
+<ol>
+<li>arrow function</li>
+</ol>
+<p>这个恐怕是ES6最最常用的一个新特性了，用它来写function比原来的写法要简洁清晰很多:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span><span class="params">(i)</span></span>&#123; <span class="keyword">return</span> i + <span class="number">1</span>; &#125; <span class="comment">//ES5</span></div><div class="line">(i) =&gt; i + <span class="number">1</span> <span class="comment">//ES6</span></div></pre></td></tr></table></figure></p>
+<p>简直是简单的不像话对吧…<br>如果方程比较复杂，则需要用{}把代码包起来：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span><span class="params">(x, y)</span></span> &#123; </div><div class="line">    x++;</div><div class="line">    y<span class="comment">--;</span></div><div class="line">    <span class="keyword">return</span> x + y;</div><div class="line">&#125;</div><div class="line">(x, y) =&gt; &#123;x++; y<span class="comment">--; return x+y&#125;</span></div></pre></td></tr></table></figure></p>
+<p>除了看上去更简洁以外，arrow function还有一项超级无敌的功能！<br>长期以来，JavaScript语言的this对象一直是一个令人头痛的问题，在对象方法中使用this，必须非常小心。例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>()&#123;</div><div class="line">        <span class="keyword">this</span>.type = <span class="string">'animal'</span></div><div class="line">    &#125;</div><div class="line">    says(say)&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.type + <span class="string">' says '</span> + say)</div><div class="line">        &#125;, <span class="number">1000</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"> <span class="keyword">var</span> animal = <span class="keyword">new</span> Animal()</div><div class="line"> animal.says(<span class="string">'hi'</span>)  <span class="comment">//undefined says hi</span></div></pre></td></tr></table></figure></p>
+<p>运行上面的代码会报错，这是因为setTimeout中的this指向的是全局对象。所以为了让它能够正确的运行，传统的解决方法有两种：</p>
+<pre><code>第一种是将this传给self,再用self来指代this
+</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">says(say)&#123;</div><div class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>;</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(self.type + <span class="string">' says '</span> + say)</div><div class="line">    &#125;, <span class="number">1000</span>)</div></pre></td></tr></table></figure>
+<pre><code>2.第二种方法是用bind(this),即
+</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">says(say)&#123;</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.type + <span class="string">' says '</span> + say)</div><div class="line">    &#125;.bind(<span class="keyword">this</span>), <span class="number">1000</span>)</div></pre></td></tr></table></figure>
+<pre><code>但现在我们有了箭头函数，就不需要这么麻烦了：
+</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>()&#123;</div><div class="line">        <span class="keyword">this</span>.type = <span class="string">'animal'</span></div><div class="line">    &#125;</div><div class="line">    says(say)&#123;</div><div class="line">        setTimeout( () =&gt; &#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.type + <span class="string">' says '</span> + say)</div><div class="line">        &#125;, <span class="number">1000</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> <span class="keyword">var</span> animal = <span class="keyword">new</span> Animal()</div><div class="line"> animal.says(<span class="string">'hi'</span>)  <span class="comment">//animal says hi</span></div></pre></td></tr></table></figure>
+<p>当我们使用箭头函数时，函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，它的this是继承外面的，因此内部的this就是外层代码块的this。</p>
+<ol>
+<li>template string</li>
+</ol>
+<p>这个东西也是非常有用，当我们要插入大段的html内容到文档中时，传统的写法非常麻烦，所以之前我们通常会引用一些模板工具库，比如mustache等等。</p>
+<p>大家可以先看下面一段代码：<br><figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="string">$(</span><span class="comment">"#result"</span>).append(</div><div class="line">  <span class="comment">"There are &lt;b&gt;"</span> + basket.count + <span class="comment">"&lt;/b&gt; "</span> +</div><div class="line">  <span class="comment">"items in your basket, "</span> +</div><div class="line">  <span class="comment">"&lt;em&gt;"</span> + basket.onSale +</div><div class="line">  <span class="comment">"&lt;/em&gt; are on sale!"</span></div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>我们要用一堆的’+’号来连接文本与变量，而使用ES6的新特性模板字符串后，我们可以直接这么来写：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">"#result"</span>).<span class="keyword">append</span>(`</div><div class="line">  There are &lt;b&gt;<span class="variable">$&#123;basket</span>.<span class="keyword">count</span>&#125;&lt;/b&gt; items</div><div class="line">   <span class="keyword">in</span> your basket, &lt;em&gt;<span class="variable">$&#123;basket</span>.onSale&#125;&lt;/em&gt;</div><div class="line">  are <span class="keyword">on</span> sale!</div><div class="line">`);</div></pre></td></tr></table></figure></p>
+<p>用反引号（\）来标识起始，用${}`来引用变量，而且所有的空格和缩进都会被保留在输出之中，是不是非常爽？！</p>
+<ol>
+<li>destructuring</li>
+</ol>
+<p>ES6允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。</p>
+<p>看下面的例子：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> <span class="keyword">cat</span> = <span class="string">'ken'</span></div><div class="line"><span class="keyword">let</span> dog = <span class="string">'lili'</span></div><div class="line"><span class="keyword">let</span> zoo = &#123;<span class="keyword">ca</span><span class="variable">t:</span> <span class="keyword">cat</span>, <span class="keyword">do</span><span class="variable">g:</span> dog&#125;</div><div class="line">console.<span class="built_in">log</span>(zoo)  //Object &#123;<span class="keyword">ca</span><span class="variable">t:</span> <span class="string">"ken"</span>, <span class="keyword">do</span><span class="variable">g:</span> <span class="string">"lili"</span>&#125;</div></pre></td></tr></table></figure></p>
+<p>用ES6完全可以像下面这么写：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> <span class="keyword">cat</span> = <span class="string">'ken'</span></div><div class="line"><span class="keyword">let</span> dog = <span class="string">'lili'</span></div><div class="line"><span class="keyword">let</span> zoo = &#123;<span class="keyword">cat</span>, dog&#125;</div><div class="line">console.<span class="built_in">log</span>(zoo)  //Object &#123;<span class="keyword">ca</span><span class="variable">t:</span> <span class="string">"ken"</span>, <span class="keyword">do</span><span class="variable">g:</span> <span class="string">"lili"</span>&#125;</div></pre></td></tr></table></figure></p>
+<p>反过来可以这么写：<br><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> dog = &#123;<span class="class"><span class="keyword">type</span>: '<span class="title">animal</span>', <span class="title">many</span>: 2&#125;</span></div><div class="line"><span class="keyword">let</span> &#123; <span class="class"><span class="keyword">type</span>, <span class="title">many</span>&#125; </span>= dog</div><div class="line">console.log(<span class="class"><span class="keyword">type</span>, <span class="title">many</span>)   //<span class="title">animal</span> 2</span></div></pre></td></tr></table></figure></p>
+<ol>
+<li>default, rest</li>
+</ol>
+<p>default很简单，意思就是默认值。大家可以看下面的例子，调用animal()方法时忘了传参数，传统的做法就是加上这一句type = type || ‘cat’ 来指定默认值。<br><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> animal(<span class="class"><span class="keyword">type</span>)&#123;</span></div><div class="line">    <span class="class"><span class="keyword">type</span> </span>= <span class="class"><span class="keyword">type</span> || '<span class="title">cat</span>'  </span></div><div class="line">    console.log(<span class="class"><span class="keyword">type</span>)</span></div><div class="line">&#125;</div><div class="line">animal()</div></pre></td></tr></table></figure></p>
+<p>如果用ES6我们而已直接这么写：<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">animal</span><span class="params">(<span class="keyword">type</span> = <span class="string">'cat'</span>)</span><span class="comment">&#123;</span></span></div><div class="line">    console.log(type)</div><div class="line">&#125;</div><div class="line"><span class="title">animal</span><span class="params">()</span></div></pre></td></tr></table></figure></p>
+<p>最后一个rest语法也很简单，直接看例子：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">animals</span><span class="params">(<span class="rest_arg">...types</span>)</span></span>&#123;</div><div class="line">    console.log(types)</div><div class="line">&#125;</div><div class="line">animals(<span class="string">'cat'</span>, <span class="string">'dog'</span>, <span class="string">'fish'</span>) <span class="comment">//["cat", "dog", "fish"]</span></div></pre></td></tr></table></figure></p>
+<p>而如果不用ES6的话，我们则得使用ES5的arguments。</p>
+<ol>
+<li>import export</li>
+</ol>
+<p>这两个家伙对应的就是es6自己的module功能。</p>
+<p>我们之前写的Javascript一直都没有模块化的体系，无法将一个庞大的js工程拆分成一个个功能相对独立但相互依赖的小工程，再用一种简单的方法把这些小工程连接在一起。</p>
+<p>这有可能导致两个问题：</p>
+<pre><code>一方面js代码变得很臃肿，难以维护
+
+另一方面我们常常得很注意每个script标签在html中的位置，因为它们通常有依赖关系，顺序错了可能就会出bug
+</code></pre><p>在es6之前为解决上面提到的问题，我们得利用第三方提供的一些方案，主要有两种CommonJS(服务器端)和AMD（浏览器端，如require.js）。</p>
+<p>而现在我们有了es6的module功能，它实现非常简单，可以成为服务器和浏览器通用的模块解决方案。</p>
+<pre><code>ES6模块的设计思想，是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS和AMD模块，都只能在运行时确定这些东西。
+</code></pre><p>上面的设计思想看不懂也没关系，咱先学会怎么用，等以后用多了、熟练了再去研究它背后的设计思想也不迟！好，那我们就上代码…<br>传统的写法</p>
+<p>首先我们回顾下require.js的写法。假设我们有两个js文件: index.js和content.js,现在我们想要在index.js中使用content.js返回的结果，我们要怎么做呢？</p>
+<p>首先定义：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//content.js</span></div><div class="line">define(<span class="string">'content.js'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">'A cat'</span>;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>然后require：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//index.js</span></div><div class="line"><span class="built_in">require</span>([<span class="string">'./content.js'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">animal</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(animal);   <span class="comment">//A cat</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>那CommonJS是怎么写的呢？<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//index.js</span></div><div class="line"><span class="selector-tag">var</span> animal = require(<span class="string">'./content.js'</span>)</div><div class="line"></div><div class="line"><span class="comment">//content.js</span></div><div class="line">module<span class="selector-class">.exports</span> = <span class="string">'A cat'</span></div></pre></td></tr></table></figure></p>
+<p>ES6的写法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//index.js</span></div><div class="line"><span class="keyword">import</span> animal <span class="keyword">from</span> <span class="string">'./content'</span></div><div class="line"></div><div class="line"><span class="comment">//content.js</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="string">'A cat'</span></div></pre></td></tr></table></figure></p>
+<p>以上我把三者都列出来了，妈妈再也不用担心我写混淆了…<br>ES6 module的其他高级用法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//content.js</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="string">'A cat'</span>    </div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">say</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">'Hello!'</span></div><div class="line">&#125;    </div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> type = <span class="string">'dog'</span></div></pre></td></tr></table></figure></p>
+<p>上面可以看出，export命令除了输出变量，还可以输出函数，甚至是类<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//index.js</span></div><div class="line"><span class="keyword">import</span> &#123; say, type &#125; <span class="keyword">from</span> <span class="string">'./content'</span>  </div><div class="line"><span class="keyword">let</span> says = say()</div><div class="line"><span class="built_in">console</span>.log(<span class="string">`The <span class="subst">$&#123;type&#125;</span> says <span class="subst">$&#123;says&#125;</span>`</span>)  <span class="comment">//The dog says Hello</span></div></pre></td></tr></table></figure></p>
+<p>这里输入的时候要注意：大括号里面的变量名，必须与被导入模块（content.js）对外接口的名称相同。</p>
+<p>如果还希望输入content.js中输出的默认值(default), 可以写在大括号外面。</p>
+<p>//index.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> animal, &#123; say, type &#125; <span class="keyword">from</span> <span class="string">'./content'</span>  </div><div class="line"><span class="keyword">let</span> says = say()</div><div class="line"><span class="built_in">console</span>.log(<span class="string">`The <span class="subst">$&#123;type&#125;</span> says <span class="subst">$&#123;says&#125;</span> to <span class="subst">$&#123;animal&#125;</span>`</span>)  </div><div class="line"><span class="comment">//The dog says Hello to A cat</span></div></pre></td></tr></table></figure></p>
+<p>修改变量名</p>
+<p>此时我们不喜欢type这个变量名，因为它有可能重名，所以我们需要修改一下它的变量名。在es6中可以用as实现一键换名。</p>
+<p>//index.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> animal, &#123; say, type <span class="keyword">as</span> animalType &#125; <span class="keyword">from</span> <span class="string">'./content'</span>  </div><div class="line"><span class="keyword">let</span> says = say()</div><div class="line"><span class="built_in">console</span>.log(<span class="string">`The <span class="subst">$&#123;animalType&#125;</span> says <span class="subst">$&#123;says&#125;</span> to <span class="subst">$&#123;animal&#125;</span>`</span>)  </div><div class="line"><span class="comment">//The dog says Hello to A cat</span></div></pre></td></tr></table></figure></p>
+<p>模块的整体加载</p>
+<p>除了指定加载某个输出值，还可以使用整体加载，即用星号（*）指定一个对象，所有输出值都加载在这个对象上面。</p>
+<p>//index.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> animal, * <span class="keyword">as</span> content <span class="keyword">from</span> <span class="string">'./content'</span>  </div><div class="line"><span class="keyword">let</span> says = content.say()</div><div class="line"><span class="built_in">console</span>.log(<span class="string">`The <span class="subst">$&#123;content.type&#125;</span> says <span class="subst">$&#123;says&#125;</span> to <span class="subst">$&#123;animal&#125;</span>`</span>)  </div><div class="line"><span class="comment">//The dog says Hello to A cat</span></div></pre></td></tr></table></figure></p>
+<p>通常星号*结合as一起使用比较合适。<br>终极秘籍</p>
+<p>考虑下面的场景：上面的content.js一共输出了三个变量（default, say, type）,假如我们的实际项目当中只需要用到type这一个变量，其余两个我们暂时不需要。我们可以只输入一个变量：<br><figure class="highlight moonscript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; <span class="built_in">type</span> &#125; <span class="keyword">from</span> <span class="string">'./content'</span></div></pre></td></tr></table></figure></p>
+<p>由于其他两个变量没有被使用，我们希望代码打包的时候也忽略它们，抛弃它们，这样在大项目中可以显著减少文件的体积。</p>
+<p>ES6帮我们实现了！s</p>
+<p>不过，目前无论是webpack还是browserify都还不支持这一功能…</p>
+<p>如果你现在就想实现这一功能的话，可以尝试使用rollup.js</p>
+<p>他们把这个功能叫做Tree-shaking，哈哈哈，意思就是打包前让整个文档树抖一抖，把那些并未被依赖或使用的东西统统抖落下去。。。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/10/08/ES6笔记/" data-id="ciuv0gvei0000moos6qfsvwja" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Git指南" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/08/Git指南/" class="article-date">
+  <time datetime="2016-10-08T15:54:36.000Z" itemprop="datePublished">2016-10-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/版本控制/">版本控制</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/08/Git指南/">Git指南</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#Git是什么？</p>
+<p>Git是目前世界上最先进的分布式版本控制系统（没有之一）。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="ciuv0gvfc0006moossvairgob" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js作用域与闭包" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/09/08/js作用域与闭包/" class="article-date">
@@ -122,88 +303,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/08/js作用域与闭包/" data-id="cit2kx3r40008g4osxnch11p1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/08/js作用域与闭包/" data-id="ciuv0gvh8000imoos50jotx9q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/作用域/">作用域</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/闭包/">闭包</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Git在本地及远程仓库中实现版本回退" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/" class="article-date">
-  <time datetime="2016-09-01T11:54:36.000Z" itemprop="datePublished">2016-09-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/版本控制/">版本控制</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>通过使用GIT版本恢复命令reset，可以回退版本。</p>
-<p>reset命令有3种方式：</p>
-<p>git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息　　</p>
-<p>git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可　　</p>
-<p>git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容　　　　</p>
-<p>以下是一些reset的示例：</p>
-<p>#回退所有内容到上一个版本　　　　</p>
-<p>git　　reset　　HEAD^　　　　　　</p>
-<p>#回退a.py这个文件的版本到上一个版本　　　　　　</p>
-<p>git　　reset　　HEAD^　　a.py　　　　　　</p>
-<p>#向前回退到第3个版本　　　　　　</p>
-<p>git　　reset　　–soft　　HEAD~3　　　　　　</p>
-<p>#将本地的状态回退到和远程的一样　　　　　　</p>
-<p>git　　reset　　–hard　　origin/master　　　　　　</p>
-<p>#回退到某个版本　　　　　　</p>
-<p>git　　reset　　057d　　　　　　</p>
-<p>#回退到上一次提交的状态，按照某一次的commit完全反向的进行一次commit　　　　　　</p>
-<p>git　　revert　　HEAD　</p>
-<p>如果我们某次修改了某些内容，并且已经commit到本地仓库，而且已经push到远程仓库了</p>
-<p>这种情况下，我们想把本地和远程仓库都回退到某个版本，该怎么做呢？</p>
-<p>前面讲到的git reset只是在本地仓库中回退版本，而远程仓库的版本不会变化</p>
-<p>这样，即时本地reset了，但如果再git pull，那么，远程仓库的内容又会和本地之前版本的内容进行merge</p>
-<p>这并不是我们想要的东西，这时可以有2种办法来解决这个问题：</p>
-<p>直接在远程server的仓库目录下，执行git reset –soft 10efa来回退。注意：在远程不能使用mixed或hard参数</p>
-<p>在本地直接把远程的master分支给删除，然后再把reset后的分支内容给push上去，如下：</p>
-<p>#新建old_master分支做备份　　　　</p>
-<p>git　　branch　　old_master　　　　</p>
-<p>#push到远程　　　　</p>
-<p>git　　push　　origin　　old_master:old_master　　　</p>
-<p>#本地仓库回退到某个版本　　</p>
-<p>git　　reset　　–hard　　bae168　</p>
-<p>#删除远程的master分支</p>
-<p>#如果使用的是bitbucket，先要在项目的设置里面将主分支改为其他，才可删除master分支</p>
-<p>git　　push　　origin　　:master　</p>
-<p>#重新创建master分支　</p>
-<p>git　　push　　origin　　master</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/01/Git在本地及远程仓库中实现版本回退/" data-id="cit2kx3qm0000g4osgl86pian" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/版本回退/">版本回退</a></li></ul>
 
     </footer>
   </div>
@@ -298,10 +401,88 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/01/正则表达式学习/" data-id="cit2kx3rc000gg4os76z1hp6r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/01/正则表达式学习/" data-id="ciuv0gvhw000umoosf1zos6gq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正则表达式/">正则表达式</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Git在本地及远程仓库中实现版本回退" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/" class="article-date">
+  <time datetime="2016-09-01T11:54:36.000Z" itemprop="datePublished">2016-09-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/版本控制/">版本控制</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通过使用GIT版本恢复命令reset，可以回退版本。</p>
+<p>reset命令有3种方式：</p>
+<p>git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息　　</p>
+<p>git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可　　</p>
+<p>git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容　　　　</p>
+<p>以下是一些reset的示例：</p>
+<p>#回退所有内容到上一个版本　　　　</p>
+<p>git　　reset　　HEAD^　　　　　　</p>
+<p>#回退a.py这个文件的版本到上一个版本　　　　　　</p>
+<p>git　　reset　　HEAD^　　a.py　　　　　　</p>
+<p>#向前回退到第3个版本　　　　　　</p>
+<p>git　　reset　　–soft　　HEAD~3　　　　　　</p>
+<p>#将本地的状态回退到和远程的一样　　　　　　</p>
+<p>git　　reset　　–hard　　origin/master　　　　　　</p>
+<p>#回退到某个版本　　　　　　</p>
+<p>git　　reset　　057d　　　　　　</p>
+<p>#回退到上一次提交的状态，按照某一次的commit完全反向的进行一次commit　　　　　　</p>
+<p>git　　revert　　HEAD　</p>
+<p>如果我们某次修改了某些内容，并且已经commit到本地仓库，而且已经push到远程仓库了</p>
+<p>这种情况下，我们想把本地和远程仓库都回退到某个版本，该怎么做呢？</p>
+<p>前面讲到的git reset只是在本地仓库中回退版本，而远程仓库的版本不会变化</p>
+<p>这样，即时本地reset了，但如果再git pull，那么，远程仓库的内容又会和本地之前版本的内容进行merge</p>
+<p>这并不是我们想要的东西，这时可以有2种办法来解决这个问题：</p>
+<p>直接在远程server的仓库目录下，执行git reset –soft 10efa来回退。注意：在远程不能使用mixed或hard参数</p>
+<p>在本地直接把远程的master分支给删除，然后再把reset后的分支内容给push上去，如下：</p>
+<p>#新建old_master分支做备份　　　　</p>
+<p>git　　branch　　old_master　　　　</p>
+<p>#push到远程　　　　</p>
+<p>git　　push　　origin　　old_master:old_master　　　</p>
+<p>#本地仓库回退到某个版本　　</p>
+<p>git　　reset　　–hard　　bae168　</p>
+<p>#删除远程的master分支</p>
+<p>#如果使用的是bitbucket，先要在项目的设置里面将主分支改为其他，才可删除master分支</p>
+<p>git　　push　　origin　　:master　</p>
+<p>#重新创建master分支　</p>
+<p>git　　push　　origin　　master</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/09/01/Git在本地及远程仓库中实现版本回退/" data-id="ciuv0gveu0002moosiblh56zq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/版本回退/">版本回退</a></li></ul>
 
     </footer>
   </div>
@@ -369,7 +550,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/31/Mac下使用siege做系统压力测试/" data-id="cit2kx3qs0002g4osxvtkdbe3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/31/Mac下使用siege做系统压力测试/" data-id="ciuv0gvfl000amoosscvs3v19" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/macports/">macports</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/系统测试/">系统测试</a></li></ul>
@@ -427,7 +608,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/25/webpack中使用ol3-layerswitcher/" data-id="cit2kx3rg000mg4osi8zg10fm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/25/webpack中使用ol3-layerswitcher/" data-id="ciuv0gvhh000jmoos8azccsa8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Openlayers/">Openlayers</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
@@ -481,7 +662,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/24/NPM安装OL时readECONNRESET的解决方法/" data-id="cit2kx3r00005g4oseeh7yyv3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/24/NPM安装OL时readECONNRESET的解决方法/" data-id="ciuv0gvfq000dmoosm0cnakel" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NPM/">NPM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Openlayers/">Openlayers</a></li></ul>
@@ -524,7 +705,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/18/Webpack使用指南/" data-id="cit2kx3r7000cg4osiclyef9y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/18/Webpack使用指南/" data-id="ciuv0gvgz000fmoosz0q9q29w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
@@ -649,7 +830,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/16/是时候学学前端自动化测试了/" data-id="cit2kx3rd000ig4os7krfsumz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/16/是时候学学前端自动化测试了/" data-id="ciuv0gvhr000pmooswlqzr2c1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NightWatch/">NightWatch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Selenium/">Selenium</a></li></ul>
@@ -661,162 +842,10 @@ hi  匹配字符串中所有的字符串hi
 
 
   
-    <article id="post-在Vue+Babel+Webpack环境中使用ESLint" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/08/14/在Vue+Babel+Webpack环境中使用ESLint/" class="article-date">
-  <time datetime="2016-08-14T09:20:01.000Z" itemprop="datePublished">2016-08-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端规范/">前端规范</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/14/在Vue+Babel+Webpack环境中使用ESLint/">在Vue+Babel+Webpack环境中使用ESLint</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在前端工程化思想盛行的工业化时代，前端代码规范在团队开发中显得越来越重要。前端代码规范的主要目的是在团队协作中避免低级bug、生产出风格统一的代码，通过编写代码规范来建立具有一致性、可执行的样式风格。通过使用定义良好的样式规范和健壮的代码审查。最常见的做法就是使用Lint工具和代码风格检测工具，它可以辅助编码规范执行，有效控制代码质量。</p>
-<p>常见的代码规范工具有：</p>
-<ul>
-<li><code>jslint</code>:jslint是一个JavaScript的代码质量检查工具，主要用来检查代码质量以及找出一些潜在的代码缺陷。</li>
-<li><code>csslint</code>:csslint是一个用来帮你找出CSS代码中问题的工具，它可做基本的语法检查以及使用一套预设的规则来检查代码中的问题，规则是可以扩展的。</li>
-<li><code>htmlhint</code>:htmllint较好地同时支持了格式规则及语义规则,同时也支持自定义规则。</li>
-<li><code>scss-lint</code>:使scss代码持续保持简洁、高效和可维护性。</li>
-</ul>
-<p>下面主要介绍ESLint：</p>
-<p>ESLint是js中目前比较流行的插件化的静态代码检测工具，它是一个以可扩展、每条规则独立、不内置编码风格为理念编写的一个lint工具。主要的特点有：</p>
-<ul>
-<li>默认规则包含所有 JSLint、JSHint 中存在的规则，易迁移</li>
-<li>规则可配置性高：可设置「警告」、「错误」两个 error 等级，或者直接禁用</li>
-<li>包含代码风格检测的规则（可以丢掉 JSCS 了）</li>
-<li>支持插件扩展、自定义规则</li>
-<li>支持JSX、ES2015语法</li>
-</ul>
-<h2 id="ESLint的使用"><a href="#ESLint的使用" class="headerlink" title="ESLint的使用"></a>ESLint的使用</h2><ol>
-<li><p>安装eslint包。在项目的根目录运行：</p>
- <figure class="highlight q"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install eslint --<span class="built_in">save</span>-<span class="built_in">dev</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>安装eslint-loader。告诉webpack我们在构建时使用eslint。</p>
- <figure class="highlight q"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install eslint-loader --<span class="built_in">save</span>-<span class="built_in">dev</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>在webpack中配置使用eslint-loader。</p>
- <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">module</span>: &#123;  </div><div class="line">   <span class="attribute">loaders</span>:[  </div><div class="line">       &#123;</div><div class="line">       test: /\.js$/, </div><div class="line">       loader: <span class="string">'babel!eslint'</span>, </div><div class="line">       exclude: /node_modules/</div><div class="line">       &#125;</div><div class="line">   ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p> 或者使用preloaders：</p>
- <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">module</span>: &#123;</div><div class="line"><span class="attribute">preLoaders</span>: [</div><div class="line">&#123;</div><div class="line">    test: /\.js$/,</div><div class="line">    exclude: /node_modules/,</div><div class="line">    loader: <span class="string">'eslint'</span></div><div class="line">    &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p> 此外，为了检测.vue文件中的JS代码，还需添加配置： </p>
- <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line"><span class="selector-tag">module</span>:&#123;&#125;,</div><div class="line">...</div><div class="line"><span class="selector-tag">vue</span>:&#123;</div><div class="line">    <span class="attribute">loaders</span>:&#123;</div><div class="line">        js: <span class="string">'babel!eslint'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">...</div></pre></td></tr></table></figure>
-</li>
-<li><p>制定检测规则文件<br> 在根目录下创建.eslintrc文件：</p>
- <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">touch</span> <span class="selector-class">.eslintrc</span></div></pre></td></tr></table></figure>
-<p> .eslintrc：</p>
- <figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"rules"</span>: &#123;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p> webpack.config.js</p>
- <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line"><span class="selector-tag">entry</span>:&#123;&#125;</div><div class="line">...</div><div class="line"><span class="selector-tag">eslint</span>: &#123;</div><div class="line">    <span class="attribute">configFile</span>: <span class="string">'./.eslintrc'</span></div><div class="line">    &#125;</div><div class="line">...</div></pre></td></tr></table></figure>
-</li>
-<li><p>如果现在启动app，会看到The keyword ‘import’ is reserved的解析错误。这是因为eslint还不知道通过Babel使用的ES6特性(比如import) ,我们需要通过babel-eslint来检测ES6代码。</p>
- <figure class="highlight q"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> babel-eslint</div></pre></td></tr></table></figure>
-<p> 修改.eslintrc：</p>
- <figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"parser"</span>: <span class="string">"babel-eslint"</span>,</div><div class="line">    <span class="attr">"rules"</span>: &#123;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>添加ESLint规则</p>
- <figure class="highlight prolog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">   <span class="string">"rules"</span>: &#123;</div><div class="line">       <span class="string">"eqeqeq"</span>: [<span class="number">2</span>, <span class="string">"allow-null"</span>]</div><div class="line">   &#125;</div><div class="line">   ...</div></pre></td></tr></table></figure>
-<p> 这条规则表示：使用 === 替代 == allow-null允许null和undefined==。<br>启动app，会看到不规范代码的提示。</p>
-</li>
-<li><p>扩展ESLint规则<br> 我们不想每次都指定这些规则，所幸已经有很多符合最佳实践的规则。这里我们使用vue作者为vue特制的编码规范。此外还有一些别的优秀的编码规范，比如Airbnb Style Guide，Airbnb开源了他们自己的ESlint配置。<br>安装vue的lint规则：</p>
- <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">install </span>eslint-<span class="built_in">config</span>-vue --save-dev</div></pre></td></tr></table></figure>
-<p> 应用vue的lint规则：</p>
- <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attribute">parser</span>: <span class="string">"babel-eslint"</span>,</div><div class="line"> 	    <span class="string">"extends"</span>: <span class="string">"vue"</span>,</div><div class="line">	<span class="string">"rules"</span>: &#123;</div><div class="line"> 			<span class="string">"eqeqeq"</span>: [<span class="number">2</span>, <span class="string">"allow-null"</span>]</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>屏蔽规则<br> 如果我们不想看到no-unused-vars(为使用过的变量定义)的警告，可以：</p>
- <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attribute">parser</span>: <span class="string">"babel-eslint"</span>,</div><div class="line"> 		<span class="string">"extends"</span>: <span class="string">"vue"</span>,</div><div class="line">	<span class="string">"rules"</span>: &#123;</div><div class="line">		<span class="string">"no-unused-vars"</span>: <span class="number">0</span>,</div><div class="line"> 			<span class="string">"eqeqeq"</span>: [<span class="number">2</span>, <span class="string">"allow-null"</span>]</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p> 这种是全局的配置，如果是只想在某些文件中禁止检测，可以如下修改(通过注释的方式)：</p>
- <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*eslint-disable no-unused-vars*/</span></div><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</div><div class="line"><span class="comment">/*eslint-enable no-unused-vars*/</span></div><div class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span>;</div><div class="line">...</div></pre></td></tr></table></figure>
-</li>
-<li><p>使用pre-commit钩子<br> 使用了pre-commit钩子后，在git commit时会自动检测代码规范，如果有违反规则代码的情况，则commit失败。</p>
-</li>
-<li><p>常见规则说明</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div></pre></td><td class="code"><pre><div class="line">"no-alert": 0,//禁止使用alert confirm prompt</div><div class="line">"no-array-constructor": 2,//禁止使用数组构造器</div><div class="line">"no-bitwise": 0,//禁止使用按位运算符</div><div class="line">"no-caller": 1,//禁止使用arguments.caller或arguments.callee</div><div class="line">"no-catch-shadow": 2,//禁止catch子句参数与外部作用域变量同名</div><div class="line">"no-class-assign": 2,//禁止给类赋值</div><div class="line">"no-cond-assign": 2,//禁止在条件表达式中使用赋值语句</div><div class="line">"no-console": 2,//禁止使用console</div><div class="line">"no-const-assign": 2,//禁止修改const声明的变量</div><div class="line">"no-constant-condition": 2,//禁止在条件中使用常量表达式 if(true) if(1)</div><div class="line">"no-continue": 0,//禁止使用continue</div><div class="line">"no-control-regex": 2,//禁止在正则表达式中使用控制字符</div><div class="line">"no-debugger": 2,//禁止使用debugger</div><div class="line">"no-<span class="keyword">delete</span>-<span class="keyword">var</span><span class="string">": 2,//不能对var声明的变量使用delete操作符</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">div</span>-regex<span class="string">": 1,//不能使用看起来像除法的正则表达式/=foo/</span></div><div class="line">"<span class="keyword">no</span>-dupe-<span class="keyword">keys</span><span class="string">": 2,//在创建对象字面量时不允许键重复 &#123;a:1,a:1&#125;</span></div><div class="line">"<span class="keyword">no</span>-dupe-args<span class="string">": 2,//函数参数不能重复</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">duplicate</span>-<span class="keyword">case</span><span class="string">": 2,//switch中的case标签不能重复</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">else</span>-<span class="keyword">return</span><span class="string">": 2,//如果if语句里面有return,后面不能跟else语句</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">empty</span><span class="string">": 2,//块语句中的内容不能为空</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">empty</span>-<span class="built_in">character</span>-<span class="keyword">class</span><span class="string">": 2,//正则表达式中的[]内容不能为空</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">empty</span>-label<span class="string">": 2,//禁止使用空label</span></div><div class="line">"<span class="keyword">no</span>-eq-<span class="literal">null</span><span class="string">": 2,//禁止对null使用==或!=运算符</span></div><div class="line">"<span class="keyword">no</span>-eval<span class="string">": 1,//禁止使用eval</span></div><div class="line">"<span class="keyword">no</span>-ex-assign<span class="string">": 2,//禁止给catch语句中的异常参数赋值</span></div><div class="line">"<span class="keyword">no</span>-extend-<span class="keyword">native</span><span class="string">": 2,//禁止扩展native对象</span></div><div class="line">"<span class="keyword">no</span>-extra-bind<span class="string">": 2,//禁止不必要的函数绑定</span></div><div class="line">"<span class="keyword">no</span>-extra-<span class="built_in">boolean</span>-<span class="keyword">cast</span><span class="string">": 2,//禁止不必要的bool转换</span></div><div class="line">"<span class="keyword">no</span>-extra-parens<span class="string">": 2,//禁止非必要的括号</span></div><div class="line">"<span class="keyword">no</span>-extra-semi<span class="string">": 2,//禁止多余的冒号</span></div><div class="line">"<span class="keyword">no</span>-fallthrough<span class="string">": 1,//禁止switch穿透</span></div><div class="line">"<span class="keyword">no</span>-floating-<span class="built_in">decimal</span><span class="string">": 2,//禁止省略浮点数中的0 .5 3.</span></div><div class="line">"<span class="keyword">no</span>-func-assign<span class="string">": 2,//禁止重复的函数声明</span></div><div class="line">"<span class="keyword">no</span>-implicit-coercion<span class="string">": 1,//禁止隐式转换</span></div><div class="line">"<span class="keyword">no</span>-implied-eval<span class="string">": 2,//禁止使用隐式eval</span></div><div class="line">"<span class="keyword">no</span>-inline-comments<span class="string">": 0,//禁止行内备注</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">inner</span>-declarations<span class="string">": [2, "</span>functions<span class="string">"],//禁止在块语句中使用声明（变量或函数）</span></div><div class="line">"<span class="keyword">no</span>-invalid-regexp<span class="string">": 2,//禁止无效的正则表达式</span></div><div class="line">"<span class="keyword">no</span>-invalid-this<span class="string">": 2,//禁止无效的this，只能用在构造器，类，对象字面量</span></div><div class="line">"<span class="keyword">no</span>-irregular-<span class="keyword">whitespace</span><span class="string">": 2,//不能有不规则的空格</span></div><div class="line">"<span class="keyword">no</span>-iterator<span class="string">": 2,//禁止使用__iterator__ 属性</span></div><div class="line">"<span class="keyword">no</span>-label-<span class="keyword">var</span><span class="string">": 2,//label名不能与var声明的变量名相同</span></div><div class="line">"<span class="keyword">no</span>-labels<span class="string">": 2,//禁止标签声明</span></div><div class="line">"<span class="keyword">no</span>-lone-blocks<span class="string">": 2,//禁止不必要的嵌套块</span></div><div class="line">"<span class="keyword">no</span>-lonely-<span class="keyword">if</span><span class="string">": 2,//禁止else语句内只有if语句</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">loop</span>-func<span class="string">": 1,//禁止在循环中使用函数（如果没有引用外部变量不形成闭包就可以）</span></div><div class="line">"<span class="keyword">no</span>-mixed-requires<span class="string">": [0, false],//声明时不能混用声明类型</span></div><div class="line">"<span class="keyword">no</span>-mixed-spaces-<span class="keyword">and</span>-tabs<span class="string">": [2, false],//禁止混用tab和空格</span></div><div class="line">"linebreak-<span class="keyword">style</span><span class="string">": [0, "</span>windows<span class="string">"],//换行风格</span></div><div class="line">"<span class="keyword">no</span>-multi-spaces<span class="string">": 1,//不能用多余的空格</span></div><div class="line">"<span class="keyword">no</span>-multi-<span class="keyword">str</span><span class="string">": 2,//字符串不能用\换行</span></div><div class="line">"<span class="keyword">no</span>-multiple-<span class="keyword">empty</span>-<span class="keyword">lines</span><span class="string">": [1, &#123;"</span><span class="keyword">max</span><span class="string">": 2&#125;],//空行最多不能超过2行</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">native</span>-reassign<span class="string">": 2,//不能重写native对象</span></div><div class="line">"<span class="keyword">no</span>-negated-<span class="keyword">in</span>-lhs<span class="string">": 2,//in 操作符的左边不能有!</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">nested</span>-ternary<span class="string">": 0,//禁止使用嵌套的三目运算</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">new</span><span class="string">": 1,//禁止在使用new构造一个实例后不赋值</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">new</span>-func<span class="string">": 1,//禁止使用new Function</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">new</span>-<span class="keyword">object</span><span class="string">": 2,//禁止使用new Object()</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">new</span>-require<span class="string">": 2,//禁止使用new require</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">new</span>-wrappers<span class="string">": 2,//禁止使用new创建包装实例，new String new Boolean new Number</span></div><div class="line">"<span class="keyword">no</span>-obj-calls<span class="string">": 2,//不能调用内置的全局对象，比如Math() JSON()</span></div><div class="line">"<span class="keyword">no</span>-octal<span class="string">": 2,//禁止使用八进制数字</span></div><div class="line">"<span class="keyword">no</span>-octal-escape<span class="string">": 2,//禁止使用八进制转义序列</span></div><div class="line">"<span class="keyword">no</span>-param-reassign<span class="string">": 2,//禁止给参数重新赋值</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">path</span>-<span class="keyword">concat</span><span class="string">": 0,//node中不能使用__dirname或__filename做路径拼接</span></div><div class="line">"<span class="keyword">no</span>-plusplus<span class="string">": 0,//禁止使用++，--</span></div><div class="line">"<span class="keyword">no</span>-process-env<span class="string">": 0,//禁止使用process.env</span></div><div class="line">"<span class="keyword">no</span>-process-<span class="keyword">exit</span><span class="string">": 0,//禁止使用process.exit()</span></div><div class="line">"<span class="keyword">no</span>-proto<span class="string">": 2,//禁止使用__proto__属性</span></div><div class="line">"<span class="keyword">no</span>-redeclare<span class="string">": 2,//禁止重复声明变量</span></div><div class="line">"<span class="keyword">no</span>-regex-spaces<span class="string">": 2,//禁止在正则表达式字面量中使用多个空格 /foo bar/</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">restricted</span>-modules<span class="string">": 0,//如果禁用了指定模块，使用就会报错</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">return</span>-assign<span class="string">": 1,//return 语句中不能有赋值表达式</span></div><div class="line">"<span class="keyword">no</span>-script-<span class="keyword">url</span><span class="string">": 0,//禁止使用javascript:void(0)</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">self</span>-compare<span class="string">": 2,//不能比较自身</span></div><div class="line">"<span class="keyword">no</span>-sequences<span class="string">": 0,//禁止使用逗号运算符</span></div><div class="line">"<span class="keyword">no</span>-shadow<span class="string">": 2,//外部作用域中的变量不能与它所包含的作用域中的变量或参数同名</span></div><div class="line">"<span class="keyword">no</span>-shadow-<span class="keyword">restricted</span>-<span class="keyword">names</span><span class="string">": 2,//严格模式中规定的限制标识符不能作为声明时的变量名使用</span></div><div class="line">"<span class="keyword">no</span>-spaced-func<span class="string">": 2,//函数调用时 函数名与()之间不能有空格</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">sparse</span>-arrays<span class="string">": 2,//禁止稀疏数组， [1,,2]</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">sync</span><span class="string">": 0,//nodejs 禁止同步方法</span></div><div class="line">"<span class="keyword">no</span>-ternary<span class="string">": 0,//禁止使用三目运算符</span></div><div class="line">"<span class="keyword">no</span>-trailing-spaces<span class="string">": 1,//一行结束后面不要有空格</span></div><div class="line">"<span class="keyword">no</span>-this-<span class="keyword">before</span>-super<span class="string">": 0,//在调用super()之前不能使用this或super</span></div><div class="line">"<span class="keyword">no</span>-throw-literal<span class="string">": 2,//禁止抛出字面量错误 throw "</span><span class="keyword">error</span><span class="string">";</span></div><div class="line">"<span class="keyword">no</span>-undef<span class="string">": 1,//不能有未定义的变量</span></div><div class="line">"<span class="keyword">no</span>-undef-init<span class="string">": 2,//变量初始化时不能直接给它赋值为undefined</span></div><div class="line">"<span class="keyword">no</span>-undefined<span class="string">": 2,//不能使用undefined</span></div><div class="line">"<span class="keyword">no</span>-unexpected-multiline<span class="string">": 2,//避免多行表达式</span></div><div class="line">"<span class="keyword">no</span>-underscore-dangle<span class="string">": 1,//标识符不能以_开头或结尾</span></div><div class="line">"<span class="keyword">no</span>-unneeded-ternary<span class="string">": 2,//禁止不必要的嵌套 var isYes = answer === 1 ? true : false;</span></div><div class="line">"<span class="keyword">no</span>-unreachable<span class="string">": 2,//不能有无法执行的代码</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">unused</span>-expressions<span class="string">": 2,//禁止无用的表达式</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">unused</span>-vars<span class="string">": [2, &#123;"</span>vars<span class="string">": "</span>all<span class="string">", "</span>args<span class="string">": "</span><span class="keyword">after</span>-used<span class="string">"&#125;],//不能有声明后未被使用的变量或参数</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">use</span>-<span class="keyword">before</span>-<span class="keyword">define</span><span class="string">": 2,//未定义前不能使用</span></div><div class="line">"<span class="keyword">no</span>-useless-<span class="keyword">call</span><span class="string">": 2,//禁止不必要的call和apply</span></div><div class="line">"<span class="keyword">no</span>-<span class="built_in">void</span><span class="string">": 2,//禁用void操作符</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">var</span><span class="string">": 0,//禁用var，用let和const代替</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">warning</span>-comments<span class="string">": [1, &#123; "</span>terms<span class="string">": ["</span>todo<span class="string">", "</span>fixme<span class="string">", "</span>xxx<span class="string">"], "</span>location<span class="string">": "</span><span class="keyword">start</span><span class="string">" &#125;],//不能有警告备注</span></div><div class="line">"<span class="keyword">no</span>-<span class="keyword">with</span><span class="string">": 2,//禁用with</span></div><div class="line">    </div><div class="line">"<span class="built_in">array</span>-bracket-spacing<span class="string">": [2, "</span><span class="keyword">never</span><span class="string">"],//是否允许非空数组里面有多余的空格</span></div><div class="line">"arrow-parens<span class="string">": 0,//箭头函数用小括号括起来</span></div><div class="line">"arrow-spacing<span class="string">": 0,//=&gt;的前/后括号</span></div><div class="line">"accessor-pairs<span class="string">": 0,//在对象中使用getter/setter</span></div><div class="line">"<span class="keyword">block</span>-scoped-<span class="keyword">var</span><span class="string">": 0,//块语句中使用var</span></div><div class="line">"brace-<span class="keyword">style</span><span class="string">": [1, "</span><span class="number">1</span>tbs<span class="string">"],//大括号风格</span></div><div class="line">"callback-<span class="keyword">return</span><span class="string">": 1,//避免多次调用回调什么的</span></div><div class="line">"camelcase<span class="string">": 2,//强制驼峰法命名</span></div><div class="line">"comma-dangle<span class="string">": [2, "</span><span class="keyword">never</span><span class="string">"],//对象字面量项尾不能有逗号</span></div><div class="line">"comma-spacing<span class="string">": 0,//逗号前后的空格</span></div><div class="line">"comma-<span class="keyword">style</span><span class="string">": [2, "</span><span class="keyword">last</span><span class="string">"],//逗号风格，换行时在行首还是行尾</span></div><div class="line">"complexity<span class="string">": [0, 11],//循环复杂度</span></div><div class="line">"computed-property-spacing<span class="string">": [0, "</span><span class="keyword">never</span><span class="string">"],//是否允许计算后的键名什么的</span></div><div class="line">"<span class="keyword">consistent</span>-<span class="keyword">return</span><span class="string">": 0,//return 后面是否允许省略</span></div><div class="line">"<span class="keyword">consistent</span>-this<span class="string">": [2, "</span>that<span class="string">"],//this别名</span></div><div class="line">"<span class="keyword">constructor</span>-super<span class="string">": 0,//非派生类不能调用super，派生类必须调用super</span></div><div class="line">"curly<span class="string">": [2, "</span>all<span class="string">"],//必须使用 if()&#123;&#125; 中的&#123;&#125;</span></div><div class="line">"<span class="keyword">default</span>-<span class="keyword">case</span><span class="string">": 2,//switch语句最后必须有default</span></div><div class="line">"dot-location<span class="string">": 0,//对象访问符的位置，换行的时候在行首还是行尾</span></div><div class="line">"dot-notation<span class="string">": [0, &#123; "</span>allowKeywords<span class="string">": true &#125;],//避免不必要的方括号</span></div><div class="line">"eol-<span class="keyword">last</span><span class="string">": 0,//文件以单一的换行符结束</span></div><div class="line">"eqeqeq<span class="string">": 2,//必须使用全等</span></div><div class="line">"func-<span class="keyword">names</span><span class="string">": 0,//函数表达式必须有名字</span></div><div class="line">"func-<span class="keyword">style</span><span class="string">": [0, "</span>declaration<span class="string">"],//函数风格，规定只能使用函数声明/函数表达式</span></div><div class="line">"generator-star-spacing<span class="string">": 0,//生成器函数*的前后空格</span></div><div class="line">"<span class="keyword">guard</span>-<span class="keyword">for</span>-<span class="keyword">in</span><span class="string">": 0,//for in循环要用if语句过滤</span></div><div class="line">"handle-callback-err<span class="string">": 0,//nodejs 处理错误</span></div><div class="line">"<span class="keyword">id</span>-<span class="keyword">length</span><span class="string">": 0,//变量名长度</span></div><div class="line">"indent<span class="string">": [2, 4],//缩进风格</span></div><div class="line">"init-declarations<span class="string">": 0,//声明时必须赋初值</span></div><div class="line">"<span class="keyword">key</span>-spacing<span class="string">": [0, &#123; "</span>beforeColon<span class="string">": false, "</span>afterColon<span class="string">": true &#125;],//对象字面量中冒号的前后空格</span></div><div class="line">"<span class="keyword">lines</span>-around-<span class="keyword">comment</span><span class="string">": 0,//行前/行后备注</span></div><div class="line">"<span class="keyword">max</span>-<span class="keyword">depth</span><span class="string">": [0, 4],//嵌套块深度</span></div><div class="line">"<span class="keyword">max</span>-<span class="keyword">len</span><span class="string">": [0, 80, 4],//字符串最大长度</span></div><div class="line">"<span class="keyword">max</span>-<span class="keyword">nested</span>-callbacks<span class="string">": [0, 2],//回调嵌套深度</span></div><div class="line">"<span class="keyword">max</span>-params<span class="string">": [0, 3],//函数最多只能有3个参数</span></div><div class="line">"<span class="keyword">max</span>-statements<span class="string">": [0, 10],//函数内最多有几个声明</span></div><div class="line">"<span class="keyword">new</span>-cap<span class="string">": 2,//函数名首行大写必须使用new方式调用，首行小写必须用不带new方式调用</span></div><div class="line">"<span class="keyword">new</span>-parens<span class="string">": 2,//new时必须加小括号</span></div><div class="line">"<span class="keyword">newline</span>-<span class="keyword">after</span>-<span class="keyword">var</span><span class="string">": 2,//变量声明后是否需要空一行</span></div><div class="line">"<span class="keyword">object</span>-curly-spacing<span class="string">": [0, "</span><span class="keyword">never</span><span class="string">"],//大括号内是否允许不必要的空格</span></div><div class="line">"<span class="keyword">object</span>-shorthand<span class="string">": 0,//强制对象字面量缩写语法</span></div><div class="line">"one-<span class="keyword">var</span><span class="string">": 1,//连续声明</span></div><div class="line">"<span class="keyword">operator</span>-assignment<span class="string">": [0, "</span><span class="keyword">always</span><span class="string">"],//赋值运算符 += -=什么的</span></div><div class="line">"<span class="keyword">operator</span>-linebreak<span class="string">": [2, "</span><span class="keyword">after</span><span class="string">"],//换行时运算符在行尾还是行首</span></div><div class="line">"padded-blocks<span class="string">": 0,//块语句内行首行尾是否要空行</span></div><div class="line">"prefer-const<span class="string">": 0,//首选const</span></div><div class="line">"prefer-spread<span class="string">": 0,//首选展开运算</span></div><div class="line">"prefer-reflect<span class="string">": 0,//首选Reflect的方法</span></div><div class="line">"quotes<span class="string">": [1, "</span>single<span class="string">"],//引号类型 `` "" ''</span></div><div class="line">"quote-props<span class="string">":[2, "</span><span class="keyword">always</span><span class="string">"],//对象字面量中的属性名是否强制双引号</span></div><div class="line">"radix<span class="string">": 2,//parseInt必须指定第二个参数</span></div><div class="line">"<span class="keyword">id</span>-<span class="keyword">match</span><span class="string">": 0,//命名检测</span></div><div class="line">"require-yield<span class="string">": 0,//生成器函数必须有yield</span></div><div class="line">"semi<span class="string">": [2, "</span><span class="keyword">always</span><span class="string">"],//语句强制分号结尾</span></div><div class="line">"semi-spacing<span class="string">": [0, &#123;"</span><span class="keyword">before</span><span class="string">": false, "</span><span class="keyword">after</span><span class="string">": true&#125;],//分号前后空格</span></div><div class="line">"<span class="keyword">sort</span>-vars<span class="string">": 0,//变量声明时排序</span></div><div class="line">"<span class="keyword">space</span>-<span class="keyword">after</span>-keywords<span class="string">": [0, "</span><span class="keyword">always</span><span class="string">"],//关键字后面是否要空一格</span></div><div class="line">"<span class="keyword">space</span>-<span class="keyword">before</span>-blocks<span class="string">": [0, "</span><span class="keyword">always</span><span class="string">"],//不以新行开始的块&#123;前面要不要有空格</span></div><div class="line">"<span class="keyword">space</span>-<span class="keyword">before</span>-<span class="keyword">function</span>-paren<span class="string">": [0, "</span><span class="keyword">always</span><span class="string">"],//函数定义时括号前面要不要有空格</span></div><div class="line">"<span class="keyword">space</span>-<span class="keyword">in</span>-parens<span class="string">": [0, "</span><span class="keyword">never</span><span class="string">"],//小括号里面要不要有空格</span></div><div class="line">"<span class="keyword">space</span>-infix-ops<span class="string">": 0,//中缀操作符周围要不要有空格</span></div><div class="line">"<span class="keyword">space</span>-<span class="keyword">return</span>-throw-<span class="keyword">case</span><span class="string">": 2,//return throw case后面要不要加空格</span></div><div class="line">"<span class="keyword">space</span>-unary-ops<span class="string">": [0, &#123; "</span>words<span class="string">": true, "</span>nonwords<span class="string">": false &#125;],//一元运算符的前/后要不要加空格</span></div><div class="line">"spaced-<span class="keyword">comment</span><span class="string">": 0,//注释风格要不要有空格什么的</span></div><div class="line">"<span class="keyword">strict</span><span class="string">": 2,//使用严格模式</span></div><div class="line">"<span class="keyword">use</span>-isnan<span class="string">": 2,//禁止比较时使用NaN，只能用isNaN()</span></div><div class="line">"valid-jsdoc<span class="string">": 0,//jsdoc规则</span></div><div class="line">"valid-typeof<span class="string">": 2,//必须使用合法的typeof的值</span></div><div class="line">"vars-<span class="keyword">on</span>-top<span class="string">": 2,//var必须放在作用域顶部</span></div><div class="line">"wrap-iife<span class="string">": [2, "</span>inside<span class="string">"],//立即执行函数表达式的小括号风格</span></div><div class="line">"wrap-regex<span class="string">": 0,//正则表达式字面量用小括号包起来</span></div><div class="line">"yoda<span class="string">": [2, "</span><span class="keyword">never</span><span class="string">"]//禁止尤达条件</span></div></pre></td></tr></table></figure>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/14/在Vue+Babel+Webpack环境中使用ESLint/" data-id="cit2kx3r5000ag4osulxb3ohx" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ESLint/">ESLint</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaScript学习之路-简介" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/08/10/JavaScript学习之路-简介/" class="article-date">
-  <time datetime="2015-08-10T15:57:26.000Z" itemprop="datePublished">2015-08-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/08/10/JavaScript学习之路-简介/">JavaScript学习之路-简介</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>JavaScript诞生于1995年，当时的主要目的是用来做表单的数据验证功能，而如今JavaScript已成为一门功能全面的语言。要想全面理解和掌握JavaScript，关键在于掌握它的本质、历史和局限性。</p>
-<h2 id="JavaScript实现"><a href="#JavaScript实现" class="headerlink" title="JavaScript实现"></a>JavaScript实现</h2><p>完整的JavaScript实现包括以下三个部分：</p>
-<ol>
-<li><p>核心（ECMAScript）</p>
-</li>
-<li><p>文档对象模型（DOM）</p>
-</li>
-<li>浏览器对象模型（BOM）</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/08/10/JavaScript学习之路-简介/" data-id="cit2kx3r30006g4osdpo5hgb9" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </section>
         
@@ -826,7 +855,7 @@ hi  匹配字符串中所有的字符串hi
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NPM/">NPM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openlayers/">Openlayers</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端构建/">前端构建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端测试/">前端测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端规范/">前端规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/正则表达式/">正则表达式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本控制/">版本控制</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ES6/">ES6</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NPM/">NPM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openlayers/">Openlayers</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端构建/">前端构建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端测试/">前端测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端规范/">前端规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/正则表达式/">正则表达式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本控制/">版本控制</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -835,7 +864,7 @@ hi  匹配字符串中所有的字符串hi
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESLint/">ESLint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NPM/">NPM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NightWatch/">NightWatch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openlayers/">Openlayers</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Selenium/">Selenium</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macports/">macports</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/作用域/">作用域</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式/">正则表达式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本回退/">版本回退</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统测试/">系统测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闭包/">闭包</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESLint/">ESLint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NPM/">NPM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NightWatch/">NightWatch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openlayers/">Openlayers</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Selenium/">Selenium</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macports/">macports</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/作用域/">作用域</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式/">正则表达式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本回退/">版本回退</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统测试/">系统测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闭包/">闭包</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -844,7 +873,7 @@ hi  匹配字符串中所有的字符串hi
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ESLint/" style="font-size: 10px;">ESLint</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/NPM/" style="font-size: 10px;">NPM</a> <a href="/tags/NightWatch/" style="font-size: 10px;">NightWatch</a> <a href="/tags/Openlayers/" style="font-size: 20px;">Openlayers</a> <a href="/tags/Selenium/" style="font-size: 10px;">Selenium</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/macports/" style="font-size: 10px;">macports</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/正则表达式/" style="font-size: 10px;">正则表达式</a> <a href="/tags/版本回退/" style="font-size: 10px;">版本回退</a> <a href="/tags/系统测试/" style="font-size: 10px;">系统测试</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+      <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/ESLint/" style="font-size: 10px;">ESLint</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/NPM/" style="font-size: 10px;">NPM</a> <a href="/tags/NightWatch/" style="font-size: 10px;">NightWatch</a> <a href="/tags/Openlayers/" style="font-size: 20px;">Openlayers</a> <a href="/tags/Selenium/" style="font-size: 10px;">Selenium</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/macports/" style="font-size: 10px;">macports</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/正则表达式/" style="font-size: 10px;">正则表达式</a> <a href="/tags/版本回退/" style="font-size: 10px;">版本回退</a> <a href="/tags/系统测试/" style="font-size: 10px;">系统测试</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
     </div>
   </div>
 
@@ -853,7 +882,7 @@ hi  匹配字符串中所有的字符串hi
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -865,11 +894,15 @@ hi  匹配字符串中所有的字符串hi
       <ul>
         
           <li>
-            <a href="/2016/09/08/js作用域与闭包/">js作用域与闭包</a>
+            <a href="/2016/10/08/ES6笔记/">ES6笔记</a>
           </li>
         
           <li>
-            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
+            <a href="/2016/10/08/Git指南/">Git指南</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/08/js作用域与闭包/">js作用域与闭包</a>
           </li>
         
           <li>
@@ -877,11 +910,7 @@ hi  匹配字符串中所有的字符串hi
           </li>
         
           <li>
-            <a href="/2016/08/31/Mac下使用siege做系统压力测试/">Mac下使用siege做系统压力测试</a>
-          </li>
-        
-          <li>
-            <a href="/2016/08/25/webpack中使用ol3-layerswitcher/">webpack中使用ol3-layerswitcher</a>
+            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
           </li>
         
       </ul>
