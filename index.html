@@ -94,9 +94,10 @@
         <p>ECMAScript 6（以下简称ES6）是JavaScript语言的下一代标准。因为当前版本的ES6是在2015年发布的，所以又称ECMAScript 2015。</p>
 <p>babel是常用的es6转换器，这儿提供一个学习使用的es6在线编辑工具：<a href="http://www.es6fiddle.net/" target="_blank" rel="external">ES6在线编辑器</a>。</p>
 <ol>
-<li>let, const</li>
+<li><p>let, const</p>
+ <figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var <span class="built_in">name</span> = <span class="string">'zach'</span></div><div class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</div><div class="line">    var <span class="built_in">name</span> = <span class="string">'obama'</span></div><div class="line">    console.<span class="built_in">log</span>(<span class="built_in">name</span>)  <span class="comment">//obama</span></div><div class="line">    break</div><div class="line">&#125;</div><div class="line">console.<span class="built_in">log</span>(<span class="built_in">name</span>)  <span class="comment">//obama</span></div></pre></td></tr></table></figure>
+</li>
 </ol>
-<figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var <span class="built_in">name</span> = <span class="string">'zach'</span></div><div class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</div><div class="line">    var <span class="built_in">name</span> = <span class="string">'obama'</span></div><div class="line">    console.<span class="built_in">log</span>(<span class="built_in">name</span>)  <span class="comment">//obama</span></div><div class="line">    break</div><div class="line">&#125;</div><div class="line">console.<span class="built_in">log</span>(<span class="built_in">name</span>)  <span class="comment">//obama</span></div></pre></td></tr></table></figure>
 <p>由于ES5只有全局作用域和函数作用域，没有块级作用域，这带来很多不合理的场景。第一种场景就是你现在看到的内层变量覆盖外层变量。而let则实际上为JavaScript新增了块级作用域。用它所声明的变量，只在let命令所在的代码块内有效。<br><figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">let <span class="built_in">name</span> = <span class="string">'zach'</span></div><div class="line"></div><div class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</div><div class="line">    let <span class="built_in">name</span> = <span class="string">'obama'</span></div><div class="line">    console.<span class="built_in">log</span>(<span class="built_in">name</span>)  <span class="comment">//obama</span></div><div class="line">    break</div><div class="line">&#125;</div><div class="line"></div><div class="line">console.<span class="built_in">log</span>(<span class="built_in">name</span>)  <span class="comment">//zach</span></div></pre></td></tr></table></figure></p>
 <p>另外一个var带来的不合理场景就是用来计数的循环变量泄露为全局变量，看下面的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</div><div class="line">  a[i] = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i);</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line">a[<span class="number">6</span>](); <span class="comment">// 10</span></div></pre></td></tr></table></figure></p>
 <p>上面代码中，变量i是var声明的，在全局范围内都有效。所以每一次循环，新的i值都会覆盖旧值，导致最后输出的是最后一轮的i的值。而使用let则不会出现这个问题。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</div><div class="line">  a[i] = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i);</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line">a[<span class="number">6</span>](); <span class="comment">// 6</span></div></pre></td></tr></table></figure></p>
@@ -190,7 +191,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/08/ES6笔记/" data-id="ciuv0gvei0000moos6qfsvwja" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/08/ES6笔记/" data-id="ciuv0isiw0000n4osop06oipe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -234,7 +235,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="ciuv0gvfc0006moossvairgob" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="ciuv0isja0005n4oshdk3l94q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -303,7 +304,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/08/js作用域与闭包/" data-id="ciuv0gvh8000imoos50jotx9q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/08/js作用域与闭包/" data-id="ciuv0isjm000gn4osuvx4t4ho" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/作用域/">作用域</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/闭包/">闭包</a></li></ul>
@@ -401,7 +402,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/01/正则表达式学习/" data-id="ciuv0gvhw000umoosf1zos6gq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/01/正则表达式学习/" data-id="ciuv0isk0000sn4osyzvzpman" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正则表达式/">正则表达式</a></li></ul>
@@ -479,7 +480,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/01/Git在本地及远程仓库中实现版本回退/" data-id="ciuv0gveu0002moosiblh56zq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/01/Git在本地及远程仓库中实现版本回退/" data-id="ciuv0isj50002n4os0mpufgbf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/版本回退/">版本回退</a></li></ul>
@@ -550,7 +551,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/31/Mac下使用siege做系统压力测试/" data-id="ciuv0gvfl000amoosscvs3v19" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/31/Mac下使用siege做系统压力测试/" data-id="ciuv0isjf0008n4osnpjcbpn5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/macports/">macports</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/系统测试/">系统测试</a></li></ul>
@@ -608,7 +609,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/25/webpack中使用ol3-layerswitcher/" data-id="ciuv0gvhh000jmoos8azccsa8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/25/webpack中使用ol3-layerswitcher/" data-id="ciuv0isjo000hn4oszfh8qfwv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Openlayers/">Openlayers</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
@@ -662,7 +663,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/24/NPM安装OL时readECONNRESET的解决方法/" data-id="ciuv0gvfq000dmoosm0cnakel" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/24/NPM安装OL时readECONNRESET的解决方法/" data-id="ciuv0isjh000bn4osepjvvx8c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NPM/">NPM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Openlayers/">Openlayers</a></li></ul>
@@ -705,7 +706,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/18/Webpack使用指南/" data-id="ciuv0gvgz000fmoosz0q9q29w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/18/Webpack使用指南/" data-id="ciuv0isjj000dn4osj0583u6h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
@@ -830,7 +831,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/16/是时候学学前端自动化测试了/" data-id="ciuv0gvhr000pmooswlqzr2c1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/16/是时候学学前端自动化测试了/" data-id="ciuv0isjv000nn4osukn9qyas" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NightWatch/">NightWatch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Selenium/">Selenium</a></li></ul>
