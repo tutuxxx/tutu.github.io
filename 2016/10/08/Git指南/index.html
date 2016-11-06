@@ -6,18 +6,36 @@
   <title>Git指南 | TuTu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="#Git是什么？
-Git是目前世界上最先进的分布式版本控制系统（没有之一）。">
+Git是目前世界上最先进的分布式版本控制系统（没有之一）。
+#为什么不是svn？
+
+Git极其强大的分支管理
+Git本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史，而SVN的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行 这样的好处在于：
+自己可以在脱机环境查看开发的版本历史
+多人开发时如果充当中央仓库的Git仓库挂了，任何一个开发者的仓库都可">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git指南">
 <meta property="og:url" content="http://yoursite.com/2016/10/08/Git指南/index.html">
 <meta property="og:site_name" content="TuTu">
 <meta property="og:description" content="#Git是什么？
-Git是目前世界上最先进的分布式版本控制系统（没有之一）。">
-<meta property="og:updated_time" content="2016-10-27T01:43:43.000Z">
+Git是目前世界上最先进的分布式版本控制系统（没有之一）。
+#为什么不是svn？
+
+Git极其强大的分支管理
+Git本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史，而SVN的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行 这样的好处在于：
+自己可以在脱机环境查看开发的版本历史
+多人开发时如果充当中央仓库的Git仓库挂了，任何一个开发者的仓库都可">
+<meta property="og:updated_time" content="2016-11-05T09:54:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git指南">
 <meta name="twitter:description" content="#Git是什么？
-Git是目前世界上最先进的分布式版本控制系统（没有之一）。">
+Git是目前世界上最先进的分布式版本控制系统（没有之一）。
+#为什么不是svn？
+
+Git极其强大的分支管理
+Git本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史，而SVN的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行 这样的好处在于：
+自己可以在脱机环境查看开发的版本历史
+多人开发时如果充当中央仓库的Git仓库挂了，任何一个开发者的仓库都可">
   
     <link rel="alternative" href="/atom.xml" title="TuTu" type="application/atom+xml">
   
@@ -95,11 +113,207 @@ Git是目前世界上最先进的分布式版本控制系统（没有之一）�
       
         <p>#Git是什么？</p>
 <p>Git是目前世界上最先进的分布式版本控制系统（没有之一）。</p>
+<p>#为什么不是svn？</p>
+<ol>
+<li>Git极其强大的分支管理</li>
+<li>Git本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史，而SVN的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行<br> 这样的好处在于：<ul>
+<li>自己可以在脱机环境查看开发的版本历史</li>
+<li>多人开发时如果充当中央仓库的Git仓库挂了，任何一个开发者的仓库都可以作为中央仓库进行服务</li>
+</ul>
+</li>
+</ol>
+<p>#安装Git</p>
+<p>不同环境下的安装方法请自行google，安装完成后需要配置git账号：<br>    <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user<span class="selector-class">.name</span> <span class="string">"Your Name"</span></div><div class="line">$ git config --global user<span class="selector-class">.email</span> <span class="string">"email@example.com"</span></div></pre></td></tr></table></figure></p>
+<p>因为Git是分布式版本控制系统，所以，每个机器都必须自报家门：你的名字和Email地址。注意git config命令的–global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
+<p>#创建版本库</p>
+<p>版本库既仓库既repository,可以简单理解成一个目录，这个目录里面的所有文件都可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。</p>
+<ol>
+<li><p>创建空目录</p>
+ <figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">mkdir</span> myrepo</div><div class="line"><span class="keyword">cd</span> myrepo</div><div class="line"><span class="keyword">pwd</span> <span class="comment">//查看当前路径</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>初始化git仓库，把新建的文件夹变成git可管理的仓库</p>
+ <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">git init</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>初始化完成后会发现根目录下多了.git文件夹，这就是GIt用来跟踪管理版本库的文件，如果你看不到该文件夹，说明是被隐藏了，用<br>    <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">ls -ah</span></div></pre></td></tr></table></figure></p>
+<p>命令即可查看。</p>
+<ol>
+<li>添加文件到仓库<br>现有的版本控制工具都只能跟踪文本文件的改动，对于word、图片、视频等二进二进制文件，版本控制工具只能知道文件大小的变化，无法跟踪到具体的内容变化。 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">touch readme<span class="selector-class">.txt</span></div><div class="line">git add readme<span class="selector-class">.txt</span> <span class="comment">//添加准备提交的文件，git add .可添加所有文件，git add file1 file2可添加两个文件</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>提交文件到仓库 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m <span class="string">"wrote a readme file"</span> <span class="comment">//提交已添加到仓库的文件，-m为对提交文件的说明</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>#操作版本库</p>
+<ol>
+<li><p>查看仓库状态及文件变化</p>
+ <figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">status</span> //查看仓库当前的状态</div><div class="line">git <span class="built_in">diff</span> readme.txt//如果git <span class="built_in">status</span>告诉你有文件被修改过，可用git <span class="built_in">diff</span>查看当前文件相比上次提交的版本修改了什么内容，既查看工作区和版本库中最新版本的区别</div></pre></td></tr></table></figure>
+</li>
+<li><p>版本切换<br>每当你觉得文件修改到一定程度的时候，就可以“保存一个快照”，这个快照在Git中被称为commit。一旦你把文件改乱了，或者误删了文件，还可以从最近的一个commit恢复，查看历史commit，可用命令：</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">log</span><span class="comment">//查看详细的历史commit</span></div><div class="line">git <span class="built_in">log</span> --pretty=oneline<span class="comment">//更改log的输出格式（版本号:SHA1计算出来的一个非常大的数字，用十六进制表示，因为是分布式，防止每个人提交时的id冲突)和提交说明</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>在Git中，用HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。HEAD^也可以用commit id,命令中的commitid也可以用它的前几位来代替。<br>    <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">reset</span> <span class="comment">--hard HEAD^</span></div></pre></td></tr></table></figure></p>
+<p>此时用<code>git log</code>查看历史，发现只有之前的版本了，如果要想回到最新版本（未来）<br>    <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">reset</span> <span class="comment">--hard 最新版本的commit id</span></div></pre></td></tr></table></figure></p>
+<p>如果你回退后不记得最新版本的commitid了，可用<code>git reflog</code>查看你使用过的所有命令，找到你提交最新版本的哪一行命令，即可看到最新版的commitid，这样就可以回到未来了。<br>git内部有个指向当前版本的head指针，版本切换实际是改变head指针的指向。</p>
+<ol>
+<li><p>工作区和暂存区<br>工作区：已经初始化过的工作文件夹<br>版本库：工作区中的隐藏目录.git，版本库中包括叫Stage的暂存区和git自动创建的第一个分支master，及指向master分支的指针。<br>一次完整的版本添加包括以下两步：<br>第一步是用git add把文件修改添加到暂存区，暂存区用来保存文件的修改（并不是文件，因为修改一次,然后git add，再修改一次，然后git commit后，用git stauts查看发现依然有未提交的更改，所以提交的其实是第一次修改后的结果，第二次修改并没放入暂存区，所以不会被提交 ）；<br>第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支<br>可以理解为：需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改。</p>
+</li>
+<li><p>撤销修改</p>
+ <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout -- <span class="selector-tag">a</span>.txt<span class="comment">//丢弃工作区中的修改，必须有--，如果没有就变成了切换分支</span></div></pre></td></tr></table></figure>
+<p> 要撤销的修改有以下几种情况：</p>
+<ul>
+<li>如果你只是修改了文件而没添加到暂存区，使用撤销修改命令会将文件修改恢复原状，既丢弃工作区修改。</li>
+<li>如果已经添加到暂存区后，又作了修改，使用撤销修改就回到添加到暂存区后的状态。</li>
+<li><p>如果要撤销暂存区中的修改，可以使用：</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">reset</span> <span class="keyword">HEAD</span> <span class="keyword">file</span>//git <span class="keyword">reset</span>命令既可以回退版本，也可以把暂存区的修改回退到工作区。当我们用<span class="keyword">HEAD</span>时，表示最新的版本。</div></pre></td></tr></table></figure>
+<p>然后用<code>git status</code>发现暂存区是干净的，再使用<code>git checkout -- file</code>丢弃工作区中的修改。</p>
+</li>
+<li>已经提交了不合适的修改到版本库时，想要撤销本次提交，参考［2.版本切换］，不过前提是没有推送到远程库。</li>
+</ul>
+</li>
+<li><p>删除文件</p>
+ <figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">touch <span class="keyword">test</span>.txt</div><div class="line">git add <span class="keyword">test</span>.txt</div><div class="line">git commit -<span class="keyword">m</span> 'add <span class="keyword">file</span>'</div><div class="line"><span class="keyword">rm</span> <span class="keyword">test</span>.txt<span class="comment">//工作区中删除test.txt</span></div></pre></td></tr></table></figure>
+<p> 工作区中删除一个已经提交的文件后，你有两个选择:</p>
+<ul>
+<li><p>确实要在版本库中删除这个文件</p>
+  <figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">rm</span> <span class="keyword">test</span>.txt</div><div class="line">git commit -<span class="keyword">m</span> 'remove <span class="keyword">test</span>.txt'</div></pre></td></tr></table></figure>
+</li>
+<li><p>删错文件了，撤销修改即可</p>
+  <figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout <span class="comment">-- test.txt</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>远程仓库<br> Git是分布式版本控制系统，同一个Git仓库，可以分布到不同的机器上。怎么分布呢？最早，肯定只有一台机器有一个原始版本库，此后，别的机器可以“克隆”这个原始版本库，而且每台机器的版本库其实都是一样的，并没有主次之分。<br> 实际情况往往是这样，找一台电脑充当服务器的角色，每天24小时开机，其他每个人都从这个“服务器”仓库克隆一份到自己的电脑上，并且各自把各自的提交推送到服务器仓库里，也从服务器仓库中拉取别人的提交。<br> 完全可以自己搭建一台运行Git的服务器，不过现阶段，为了学Git先搭个服务器绝对是小题大作。好在这个世界上有个叫GitHub的神奇的网站，从名字就可以看出，这个网站就是提供Git仓库托管服务的，所以，只要注册一个GitHub账号，就可以免费获得Git远程仓库。<br> 这样就可以使这两个仓库进行远程同步，远程仓库既可以作为备份，又可以让其他人通过该仓库来协作。</p>
+<ul>
+<li>准备git远程仓库<br>由于你的本地Git仓库和GitHub仓库之间的传输是通过SSH加密的，所以，需要一点设置：<br>第1步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：  <figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>ssh-keygen -t rsa -C <span class="string">"youremail@example.com"</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<pre><code>你需要把邮件地址换成你自己的邮件地址，然后一路回车，使用默认值即可，由于这个Key也不是用于军事目的，所以也无需设置密码。
+
+如果一切顺利的话，可以在用户主目录(当前用户的根目录)里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+
+第2步：登陆GitHub，打开“Account settings”，“SSH Keys”页面：
+
+然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容：点“Add Key”，你就应该看到已经添加的Key：
+为什么GitHub需要SSH Key呢？因为GitHub需要识别出你推送的提交确实是你推送的，而不是别人冒充的，而Git支持SSH协议，所以，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送。
+
+当然，GitHub允许你添加多个Key。假定你有若干电脑，你一会儿在公司提交，一会儿在家里提交，只要把每台电脑的Key都添加到GitHub，就可以在每台电脑上往GitHub推送了。
+
+最后友情提示，在GitHub上免费托管的Git仓库，任何人都可以看到喔（但只有你自己才能改）。所以，不要把敏感信息放进去。
+
+如果你不想让别人看到Git库，有两个办法，一个是交点保护费，让GitHub把公开的仓库变成私有的，这样别人就看不见了（不可读更不可写）。另一个办法是自己动手，搭一个Git服务器，因为是你自己的Git服务器，所以别人也是看不见的。这个方法我们后面会讲到的，相当简单，公司内部开发必备。
+
+* 添加远程库
+
+    * 登陆GitHub》Create a new repo》填入Repository name》Create repository》创建成功
+    * 本地仓库下运行:`git remote add origin git@github.com:michaelliao/learngit.git` ,将本地仓库与远程仓库关联，origin为远程仓库的名字。
+    * `git push -u origin master`将本地库的master分支推送到远程仓库，由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+    * 从现在起，只要本地作了提交，就可以通过命令：`git push origin master`,把本地master分支的最新修改推送至GitHub，现在，你就拥有了真正的分布式版本库！
+    * SSH警告
+        当你第一次使用Git的clone或者push命令连接GitHub时，会得到一个警告：
+        这是因为Git使用SSH连接，而SSH连接在第一次验证GitHub服务器的Key时，需要你确认GitHub的Key的指纹信息是否真的来自GitHub的服务器，输入yes回车即可。
+        Git会输出一个警告，告诉你已经把GitHub的Key添加到本机的一个信任列表里了：
+        这个警告只会出现一次，后面的操作就不会有任何警告了。
+        如果你实在担心有人冒充GitHub服务器，输入yes前可以对照GitHub的RSA Key的指纹信息是否与SSH连接给出的一致。
+
+* 从远程库克隆
+假设我们从零开发，那么最好的方式是先创建远程库，然后，从远程库克隆。
+    <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">clone</span> <span class="title">git</span>@github.com:michaelliao/gitskills.git</div></pre></td></tr></table></figure>
+
+GitHub给出的地址不止一个，还可以用https://github.com/michaelliao/gitskills.git这样的地址。实际上，Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议。使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。
+</code></pre><ol>
+<li><p>分支管理<br> 分支在实际中有什么用呢？假设你准备开发一个新功能，但是需要两周才能完成，第一周你写了50%的代码，如果立刻提交，由于代码还没写完，不完整的代码库会导致别人不能干活了。如果等代码全部写完再一次提交，又存在丢失每天进度的巨大风险。<br> 现在有了分支，就不用怕了。你创建了一个属于你自己的分支，别人看不到，还继续在原来的分支上正常工作，而你在自己的分支上干活，想提交就提交，直到开发完毕后，再一次性合并到原来的分支上，这样，既安全，又不影响别人工作。<br> 其他版本控制系统如SVN等都有分支管理，但是用过之后你会发现，这些版本控制系统创建和切换分支比蜗牛还慢，简直让人无法忍受，结果分支功能成了摆设，大家都不去用。<br> 但Git的分支是与众不同的，无论创建、切换和删除分支，Git在1秒钟之内就能完成！无论你的版本库是1个文件还是1万个文件。</p>
+<ul>
+<li><p>创建与合并分支<br>目前的实例中只有一个分支叫主分支，即master分支，之前说的HEAD严格来说不是指向提交，而是指向master，master才是指向提交的，所以，HEAD指向的就是当前分支。<br>当我们创建新的分支，例如dev时，Git新建了一个指针叫dev，指向master相同的提交，再把HEAD指向dev，就表示当前分支在dev上：<br>不过，从现在开始，对工作区的修改和提交就是针对dev分支了，比如新提交一次后，dev指针往前移动一步，而master指针不变：<br>假如我们在dev上的工作完成了，就可以把dev合并到master上。Git怎么合并呢？最简单的方法，就是直接把master指向dev的当前提交，就完成了合并<br>合并完分支后，甚至可以删除dev分支。删除dev分支就是把dev指针给删掉，删掉后，我们就剩下了一条master分支：<br>实战：</p>
+<ul>
+<li><p>创建并切换分支</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">git</span> checkout -<span class="keyword">b </span>dev //－<span class="keyword">b参数表示创建并替换，相当于`git </span><span class="keyword">branch </span>dev  git checkout dev`</div></pre></td></tr></table></figure>
+</li>
+<li><p>用<code>git branch</code>命令查看当前分支:</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="bullet">* </span>dev</div><div class="line"><span class="code">  master</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>修改工作区后提交修改</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git add readme<span class="selector-class">.txt</span> </div><div class="line">git commit -m <span class="string">"branch test"</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>切换到master分支后，会发现并没有刚才的修改，这是因为刚才的提交是在dev分支上。</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout <span class="literal">master</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>将dev分支合并到当前的master分支</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">$</span> git merge dev</div><div class="line"><span class="function"><span class="title">Updating</span></span> d17efd8..fec145a</div><div class="line">Fast-forward    <span class="comment">//表示这次合并是快进模式，也就是直接把master指向dev的当前提交</span></div><div class="line"> readme.txt |    <span class="number">1</span> +</div><div class="line"> <span class="number">1</span> <span class="keyword">file</span> changed, <span class="number">1</span> insertion(+)</div></pre></td></tr></table></figure>
+</li>
+<li><p>合并完成后，删除dev分支</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">git</span> <span class="keyword">branch </span>-d dev</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>解决冲突<br> 如果两个分支在同一个文件同一个地方做了修改，比如a文件在分支1中是：A and B,分支2中是 A or B，那么在合并的时候就会发生冲突，此时需要手动解决冲突后合并：</p>
+<ul>
+<li><code>git status</code>可以看到发生冲突的文件</li>
+<li>打开冲突的文件，git会在发生冲突的位置用&lt;&lt;&lt;&lt;&lt;&lt;&lt;，=======，&gt;&gt;&gt;&gt;&gt;&gt;&gt;标记出不同分支的内容，修改后提交即可。</li>
+<li>合并分支，<code>git log --graph --pretty=oneline --abbrev-commit</code>该命令可以看到分支合并图，并删除不用的分支。</li>
+</ul>
+</li>
+<li><p>分支管理策略<br> 通常，合并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息。<br> 如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。</p>
+ <figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">merge</span> --<span class="keyword">no</span>-ff -<span class="keyword">m</span> <span class="string">"merge with no-ff"</span> dev<span class="comment">//因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去。</span></div></pre></td></tr></table></figure>
+<p> 首先，master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；<br> 那在哪干活呢？干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；<br> 你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了,再把本地的dev合并到本地的master，最后把本地的master推到远程master。</p>
+</li>
+<li><p>bug分支<br>在Git中，由于分支是如此的强大，所以，每个bug都可以通过一个新的临时分支来修复，修复后，合并分支，然后将临时分支删除。<br>当我们正在dev版本上开发新功能时，突然收到要在1小时内解决bug的需求，而自己的新功能又只开发了一半不想提交，这时就要用到Git的<code>stash</code>功能先把当前的工作现场隐藏起来。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">git status<span class="comment">//...发现当前工作区有未提交或未添加到暂存区的修改</span></div><div class="line">git stash<span class="comment">//隐藏当前的修改</span></div><div class="line">git status<span class="comment">//...发现工作区是干净的</span></div><div class="line">git checkout master<span class="comment">//切换到要修复bug的分支</span></div><div class="line">git checkout -b issue<span class="number">-1</span><span class="comment">//从要修复bug的master分支创建临时bug分支并切换到bug分支</span></div><div class="line">.......fixing bug</div><div class="line">git add file<span class="comment">//添加修改到暂存区</span></div><div class="line">git commit -m <span class="string">"fix bug 101"</span><span class="comment">//提交更改</span></div><div class="line">git checkout master<span class="comment">//切回master分支准备合并</span></div><div class="line">git merge --no-ff -m <span class="string">"merged bug fix issue1"</span> issue<span class="number">-1</span><span class="comment">//合并分支并添加备注</span></div><div class="line">git branch -d issue<span class="number">-1</span><span class="comment">//删除分支</span></div><div class="line">git checkout dev<span class="comment">//回dev分支继续干活</span></div><div class="line">git status<span class="comment">//发现工作区是干净的</span></div><div class="line">git stash <span class="type">list</span><span class="comment">//查看刚才隐藏的工作现场</span></div><div class="line">git stash apply/pop <span class="comment">//恢复隐藏的工作现场，apply和pop的区别在于恢复工作现场后后者删除了stash内容</span></div><div class="line">git stash <span class="type">list</span><span class="comment">//如果上一步用了`git stash pop`，此时看不到任何stash内容。</span></div><div class="line">git stash apply stash@&#123;<span class="number">0</span>&#125;<span class="comment">//可以多次stash，恢复的时候，先用`git stash list`查看，然后恢复指定的stash</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>Feature分支<br>添加一个新功能时，你肯定不希望因为一些实验性质的代码，把主分支搞乱了，所以，每添加一个新功能，最好新建一个feature分支，在上面开发，完成后，合并，最后，删除该feature分支。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git checkout -b feature <span class="comment"> //新建并切换到feature分支</span></div><div class="line">git <span class="built_in">add</span> <span class="built_in">file</span> <span class="comment"> //开发完成后添加到暂存区</span></div><div class="line">git commit -m <span class="string">"add feature"</span> <span class="comment"> //提交更改</span></div><div class="line">git checkout dev <span class="comment"> //切换到dev分支准备合并</span></div><div class="line">git branch -D feature <span class="comment"> //此时收到通知丢弃feature功能，用-D删除未合并的分支</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>多人协作<br>当从远程克隆仓库时，Git会自动把本地master分支和远程master分支对应起来，查看远程库的信息用<code>git remote</code>,<code>git remote -v</code>可显示抓取和推送的origin地址，如果没有推送权限，就看不到push的地址。</p>
+<ul>
+<li>推送分支<br>就是把该分支上的所有本地提交推送到远程库。推送时，要指定本地分支，这样，Git就会把该分支推送到远程库对应的远程分支上：<figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> master</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>但是，并不是一定要把本地分支往远程推送，那么，哪些分支需要推送，哪些不需要呢？</p>
+<pre><code>master分支是主分支，因此要时刻与远程同步；
+dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；
+feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
+</code></pre><ul>
+<li>抓取分支<br>当你使用<code>git clone</code>命令克隆一个仓库时，你克隆的只是仓库的master分支，此时若要在dev分支上开发，需要先创建远程origin的dev分支到本地,然后再时不时把dev分支push到远程。<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git checkout -<span class="keyword">b </span>dev <span class="keyword">origin/dev</span></div><div class="line">git <span class="keyword">add </span>file</div><div class="line">git commit -m <span class="string">'xxx'</span></div><div class="line">git push <span class="keyword">origin </span>dev</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果你和同事对项目做了同样的修改，在push时会推送失败，因为你的小伙伴的最新提交和你试图推送的提交有冲突，解决办法也很简单，Git已经提示我们，先用git pull把最新的提交从origin/dev抓下来，然后，在本地合并，解决冲突，再推送：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git pull//git pull也失败了，原因是没有指定本地dev分支与远程<span class="built_in">origin</span>/dev分支的链接，根据提示，设置dev和<span class="built_in">origin</span>/dev的链接：</div><div class="line">git branch --set-upstream dev <span class="built_in">origin</span>/dev</div><div class="line">git pull//再pull，pull成功但是合并有冲突，参考之前的冲突解决方法解决冲突后提交再<span class="built_in">push</span></div><div class="line">git commit -m <span class="string">"xxx"</span></div><div class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> dev</div></pre></td></tr></table></figure>
+<p>因此，多人协作的工作模式通常是这样：<br>首先，可以试图用git push origin branch-name推送自己的修改；<br>如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；<br>如果合并有冲突，则解决冲突，并在本地提交；<br>没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！<br>如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch –set-upstream branch-name origin/branch-name。<br>这就是多人协作的工作模式，一旦熟悉了，就非常简单。</p>
+</li>
+<li><p>标签管理<br>发布一个版本时，我们通常先在版本库中打一个标签（tag），这样，就唯一确定了打标签时刻的版本。将来无论什么时候，取某个标签的版本，就是把那个打标签的时刻的历史版本取出来。所以，标签也是版本库的一个快照。</p>
+<ul>
+<li>创建标签<br>  切换到要打标签的分支<br>  git tag v1.0 //标签名为v1.0，打在最新提交的commit处<br>  git tag //查看所有标签<br>  如果要打到历史提交的commit处，需要先找到历史提交的commit id<pre><code>git log --pretty=oneline --abbrev-commit
+git tag v0.9 6224937 //git tag tagname commitid
+</code></pre>  git show tagname//查看标签信息<br>  git tag -a v0.1 -m “version 0.1 released” 3628164//创建带说明的标签，-a指定标签名，-m指定tag说明</li>
+<li>操作标签<br>  git tag -d v1.0//删除标签<br>  git push origin tagname//推送某个标签到远程<br>  git push origin –tags//推送所有标签到远程<br>  删除远程标签  <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git tag -d v1.<span class="number">0</span><span class="comment">//先在本地删除标签</span></div><div class="line">git <span class="keyword">push</span> origin :refs<span class="regexp">/tags/</span>v1.<span class="number">0</span><span class="comment">//远程删除标签，是否真正删除可登录github查看</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>如何参与开源项目<br>1.fork你想参与的项目，相当于在自己的账号下克隆了该项目的仓库<br>2.从自己的账号下clone项目到本地，一定要从自己的账号下克隆，否则将会没有权限推送<br>3.修改后推送到自己的仓库，然后在github上发起pull request，对方如果认可你的修改，便会接受。</p>
+</li>
+<li><p>自定义git<br>除了在安装git一节中介绍的user.name和user.email，git还有很多配置<br>如：<code>git config --global color.ui true</code>可以让git显示颜色</p>
+<ul>
+<li><p>忽略特殊文件<br>  有的文件涉及密码、ip等配置文件，github中不能上传隐私信息，解决方法是只需在工作区的根目录下添加名为.gitignore的文件，这个文件不需要重头写，可参考<a href="https://github.com/github/gitignore" target="_blank" rel="external">.gitignore大全</a>。<br>  配置完忽略文件后将其提交到git就完成了。<br>  有时候当你想添加一个文件却发现添加不了，原因是这个文件被.gitignore忽略了，如果你确实想添加该文件，可以用-f强制添加到Git：</p>
+  <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">add</span> -f <span class="built_in">file</span></div></pre></td></tr></table></figure>
+<p>  或者你发现，可能是.gitignore写得有问题，需要找出来到底哪个规则写错了，可以用git check-ignore命令检查：</p>
+  <figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git<span class="built_in"> check-ignore </span>-v App.class</div><div class="line"><span class="keyword">.gitignore</span>:3:*.class    App.class</div></pre></td></tr></table></figure>
+<p>  Git会告诉我们，.gitignore的第3行规则忽略了该文件，于是我们就可以知道应该修订哪个规则。</p>
+</li>
+</ul>
+</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="ciuv0o8qi000dnios7dw02xso" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="civ64jb2k000a5xosdeepg69j" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
