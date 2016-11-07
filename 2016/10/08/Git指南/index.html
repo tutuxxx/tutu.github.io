@@ -21,7 +21,7 @@ Git极其强大的分支管理
 Git本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史，而SVN的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行 这样的好处在于：
 自己可以在脱机环境查看开发的版本历史
 多人开发时如果充当中央仓库的Git仓库挂了，任何一个开发者的仓库都可以作为中">
-<meta property="og:updated_time" content="2016-11-07T06:54:44.000Z">
+<meta property="og:updated_time" content="2016-11-07T06:58:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git指南">
 <meta name="twitter:description" content="Git是什么？Git是目前世界上最先进的分布式版本控制系统（没有之一）。
@@ -130,7 +130,7 @@ Git本地仓库包含代码库还有历史库，在本地的环境开发就可�
  <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">git init</span></div></pre></td></tr></table></figure>
 <p> 初始化完成后会发现根目录下多了.git文件夹，这就是GIt用来跟踪管理版本库的文件，如果你看不到该文件夹，说明是被隐藏了，用<code>ls -ah</code>命令即可查看。</p>
 </li>
-<li><p>添加文件到仓库<br>现有的版本控制工具都只能跟踪文本文件的改动，对于word、图片、视频等二进二进制文件，版本控制工具只能知道文件大小的变化，无法跟踪到具体的内容变化。</p>
+<li><p>添加文件到仓库<br> 现有的版本控制工具都只能跟踪文本文件的改动，对于word、图片、视频等二进二进制文件，版本控制工具只能知道文件大小的变化，无法跟踪到具体的内容变化。</p>
  <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">touch readme<span class="selector-class">.txt</span></div><div class="line">git add readme<span class="selector-class">.txt</span> <span class="comment">//添加准备提交的文件，git add .可添加所有文件，git add file1 file2可添加两个文件</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
@@ -142,14 +142,22 @@ Git本地仓库包含代码库还有历史库，在本地的环境开发就可�
 <li><p>查看仓库状态及文件变化</p>
  <figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">status</span> //查看仓库当前的状态</div><div class="line">git <span class="built_in">diff</span> readme.txt//如果git <span class="built_in">status</span>告诉你有文件被修改过，可用git <span class="built_in">diff</span>查看当前文件相比上次提交的版本修改了什么内容，既查看工作区和版本库中最新版本的区别</div></pre></td></tr></table></figure>
 </li>
-<li><p>版本切换<br>每当你觉得文件修改到一定程度的时候，就可以“保存一个快照”，这个快照在Git中被称为commit。一旦你把文件改乱了，或者误删了文件，还可以从最近的一个commit恢复，查看历史commit，可用命令：</p>
- <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">log</span><span class="comment">//查看详细的历史commit</span></div><div class="line">git <span class="built_in">log</span> --pretty=oneline<span class="comment">//更改log的输出格式（版本号:SHA1计算出来的一个非常大的数字，用十六进制表示，因为是分布式，防止每个人提交时的id冲突)和提交说明</span></div></pre></td></tr></table></figure>
+<li><p>版本切换</p>
+<ul>
+<li><p>每当你觉得文件修改到一定程度的时候，就可以“保存一个快照”，这个快照在Git中被称为commit。一旦你把文件改乱了，或者误删了文件，还可以从最近的一个commit恢复，查看历史commit，可用命令：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">log</span><span class="comment">//查看详细的历史commit</span></div><div class="line">git <span class="built_in">log</span> --pretty=oneline<span class="comment">//更改log的输出格式（版本号:SHA1计算出来的一个非常大的数字，用十六进制表示，因为是分布式，防止每个人提交时的id冲突)和提交说明</span></div></pre></td></tr></table></figure>
 </li>
-</ol>
-<p>在Git中，用HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。HEAD^也可以用commit id,命令中的commitid也可以用它的前几位来代替。<br>    <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">reset</span> <span class="comment">--hard HEAD^</span></div></pre></td></tr></table></figure></p>
-<p>此时用<code>git log</code>查看历史，发现只有之前的版本了，如果要想回到最新版本（未来）<br>    <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">reset</span> <span class="comment">--hard 最新版本的commit id</span></div></pre></td></tr></table></figure></p>
-<p>如果你回退后不记得最新版本的commitid了，可用<code>git reflog</code>查看你使用过的所有命令，找到你提交最新版本的哪一行命令，即可看到最新版的commitid，这样就可以回到未来了。<br>git内部有个指向当前版本的head指针，版本切换实际是改变head指针的指向。</p>
-<ol>
+<li><p>在Git中，用HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。HEAD^也可以用commit id,命令中的commitid也可以用它的前几位来代替。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">reset</span> <span class="comment">--hard HEAD^</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>此时用<code>git log</code>查看历史，发现只有之前的版本了，如果要想回到最新版本（未来）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">reset</span> <span class="comment">--hard 最新版本的commit id</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>如果你回退后不记得最新版本的commitid了，可用<code>git reflog</code>查看你使用过的所有命令，找到你提交最新版本的哪一行命令，即可看到最新版的commitid，这样就可以回到未来了。</p>
+</li>
+<li>git内部有个指向当前版本的head指针，版本切换实际是改变head指针的指向。</li>
+</ul>
+</li>
 <li><p>工作区和暂存区<br> 工作区：已经初始化过的工作文件夹<br> 版本库：工作区中的隐藏目录.git，版本库中包括叫Stage的暂存区和git自动创建的第一个分支master，及指向master分支的指针。<br> 一次完整的版本添加包括以下两步：<br> 第一步是用git add把文件修改添加到暂存区，暂存区用来保存文件的修改（并不是文件，因为修改一次,然后git add，再修改一次，然后git commit后，用git stauts查看发现依然有未提交的更改，所以提交的其实是第一次修改后的结果，第二次修改并没放入暂存区，所以不会被提交 ）；<br> 第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支<br> 可以理解为：需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改。</p>
 </li>
 <li><p>撤销修改</p>
@@ -285,7 +293,7 @@ git tag v0.9 6224937 //git tag tagname commitid
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="civ7pqett0000bmosizbezn5j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="civ7pvm0s0000c0osavibcv3o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -366,11 +374,11 @@ git tag v0.9 6224937 //git tag tagname commitid
           </li>
         
           <li>
-            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
+            <a href="/2016/09/01/正则表达式学习/">正则表达式学习</a>
           </li>
         
           <li>
-            <a href="/2016/09/01/正则表达式学习/">正则表达式学习</a>
+            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
           </li>
         
       </ul>
