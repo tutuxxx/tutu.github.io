@@ -21,7 +21,7 @@ Git极其强大的分支管理
 Git本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史，而SVN的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行 这样的好处在于：
 自己可以在脱机环境查看开发的版本历史
 多人开发时如果充当中央仓库的Git仓库挂了，任何一个开发者的仓库都可以作为中">
-<meta property="og:updated_time" content="2016-11-07T06:42:29.000Z">
+<meta property="og:updated_time" content="2016-11-07T06:47:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git指南">
 <meta name="twitter:description" content="Git是什么？Git是目前世界上最先进的分布式版本控制系统（没有之一）。
@@ -105,8 +105,8 @@ Git本地仓库包含代码库还有历史库，在本地的环境开发就可�
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Git是什么？"><a href="#Git是什么？" class="headerlink" title="Git是什么？"></a>Git是什么？</h1><pre><code>Git是目前世界上最先进的分布式版本控制系统（没有之一）。
-</code></pre><h1 id="为什么不是svn？"><a href="#为什么不是svn？" class="headerlink" title="为什么不是svn？"></a>为什么不是svn？</h1><ol>
+        <h1 id="Git是什么？"><a href="#Git是什么？" class="headerlink" title="Git是什么？"></a>Git是什么？</h1><p>Git是目前世界上最先进的分布式版本控制系统（没有之一）。</p>
+<h1 id="为什么不是svn？"><a href="#为什么不是svn？" class="headerlink" title="为什么不是svn？"></a>为什么不是svn？</h1><ol>
 <li>Git极其强大的分支管理</li>
 <li>Git本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史，而SVN的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行<br> 这样的好处在于：<ul>
 <li>自己可以在脱机环境查看开发的版本历史</li>
@@ -115,10 +115,9 @@ Git本地仓库包含代码库还有历史库，在本地的环境开发就可�
 </li>
 </ol>
 <h1 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h1><p>不同环境下的安装方法请自行google，安装完成后需要配置git账号：</p>
-<pre><code><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user<span class="selector-class">.name</span> <span class="string">"Your Name"</span></div><div class="line">$ git config --global user<span class="selector-class">.email</span> <span class="string">"email@example.com"</span></div></pre></td></tr></table></figure>
-</code></pre><p>因为Git是分布式版本控制系统，所以，每个机器都必须自报家门：你的名字和Email地址。注意git config命令的–global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
-<p>#创建版本库</p>
-<p>版本库既仓库既repository,可以简单理解成一个目录，这个目录里面的所有文件都可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user<span class="selector-class">.name</span> <span class="string">"Your Name"</span></div><div class="line">$ git config --global user<span class="selector-class">.email</span> <span class="string">"email@example.com"</span></div></pre></td></tr></table></figure>
+<p>因为Git是分布式版本控制系统，所以，每个机器都必须自报家门：你的名字和Email地址。注意git config命令的–global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
+<h1 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h1><p>版本库既仓库既repository,可以简单理解成一个目录，这个目录里面的所有文件都可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。</p>
 <ol>
 <li><p>创建空目录</p>
  <figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">mkdir</span> myrepo</div><div class="line"><span class="keyword">cd</span> myrepo</div><div class="line"><span class="keyword">pwd</span> <span class="comment">//查看当前路径</span></div></pre></td></tr></table></figure>
@@ -286,7 +285,7 @@ git tag v0.9 6224937 //git tag tagname commitid
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="civ7pcihb0003a9osz3u32xde" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="civ7pgtc40000atosagxi6a4c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -297,19 +296,10 @@ git tag v0.9 6224937 //git tag tagname commitid
     
 <nav id="article-nav">
   
-    <a href="/2016/10/08/ES6笔记/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          ES6笔记
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/09/08/js作用域与闭包/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/10/08/ES6笔记/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">js作用域与闭包</div>
+      <div class="article-nav-title">ES6笔记</div>
     </a>
   
 </nav>
@@ -364,11 +354,11 @@ git tag v0.9 6224937 //git tag tagname commitid
       <ul>
         
           <li>
-            <a href="/2016/10/08/ES6笔记/">ES6笔记</a>
+            <a href="/2016/10/08/Git指南/">Git指南</a>
           </li>
         
           <li>
-            <a href="/2016/10/08/Git指南/">Git指南</a>
+            <a href="/2016/10/08/ES6笔记/">ES6笔记</a>
           </li>
         
           <li>
@@ -376,11 +366,11 @@ git tag v0.9 6224937 //git tag tagname commitid
           </li>
         
           <li>
-            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
+            <a href="/2016/09/01/正则表达式学习/">正则表达式学习</a>
           </li>
         
           <li>
-            <a href="/2016/09/01/正则表达式学习/">正则表达式学习</a>
+            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
           </li>
         
       </ul>
