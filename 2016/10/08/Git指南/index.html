@@ -5,37 +5,31 @@
   
   <title>Git指南 | TuTu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#Git是什么？
-Git是目前世界上最先进的分布式版本控制系统（没有之一）。
-#为什么不是svn？
-
+  <meta name="description" content="Git是什么？Git是目前世界上最先进的分布式版本控制系统（没有之一）。
+为什么不是svn？
 Git极其强大的分支管理
 Git本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史，而SVN的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行 这样的好处在于：
 自己可以在脱机环境查看开发的版本历史
-多人开发时如果充当中央仓库的Git仓库挂了，任何一个开发者的仓库都可">
+多人开发时如果充当中央仓库的Git仓库挂了，任何一个开发者的仓库都可以作为中">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git指南">
 <meta property="og:url" content="http://yoursite.com/2016/10/08/Git指南/index.html">
 <meta property="og:site_name" content="TuTu">
-<meta property="og:description" content="#Git是什么？
-Git是目前世界上最先进的分布式版本控制系统（没有之一）。
-#为什么不是svn？
-
+<meta property="og:description" content="Git是什么？Git是目前世界上最先进的分布式版本控制系统（没有之一）。
+为什么不是svn？
 Git极其强大的分支管理
 Git本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史，而SVN的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行 这样的好处在于：
 自己可以在脱机环境查看开发的版本历史
-多人开发时如果充当中央仓库的Git仓库挂了，任何一个开发者的仓库都可">
-<meta property="og:updated_time" content="2016-11-06T06:21:36.000Z">
+多人开发时如果充当中央仓库的Git仓库挂了，任何一个开发者的仓库都可以作为中">
+<meta property="og:updated_time" content="2016-11-07T06:42:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git指南">
-<meta name="twitter:description" content="#Git是什么？
-Git是目前世界上最先进的分布式版本控制系统（没有之一）。
-#为什么不是svn？
-
+<meta name="twitter:description" content="Git是什么？Git是目前世界上最先进的分布式版本控制系统（没有之一）。
+为什么不是svn？
 Git极其强大的分支管理
 Git本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史，而SVN的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行 这样的好处在于：
 自己可以在脱机环境查看开发的版本历史
-多人开发时如果充当中央仓库的Git仓库挂了，任何一个开发者的仓库都可">
+多人开发时如果充当中央仓库的Git仓库挂了，任何一个开发者的仓库都可以作为中">
   
     <link rel="alternative" href="/atom.xml" title="TuTu" type="application/atom+xml">
   
@@ -111,10 +105,8 @@ Git本地仓库包含代码库还有历史库，在本地的环境开发就可�
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#Git是什么？</p>
-<p>Git是目前世界上最先进的分布式版本控制系统（没有之一）。</p>
-<p>#为什么不是svn？</p>
-<ol>
+        <h1 id="Git是什么？"><a href="#Git是什么？" class="headerlink" title="Git是什么？"></a>Git是什么？</h1><pre><code>Git是目前世界上最先进的分布式版本控制系统（没有之一）。
+</code></pre><h1 id="为什么不是svn？"><a href="#为什么不是svn？" class="headerlink" title="为什么不是svn？"></a>为什么不是svn？</h1><ol>
 <li>Git极其强大的分支管理</li>
 <li>Git本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史，而SVN的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行<br> 这样的好处在于：<ul>
 <li>自己可以在脱机环境查看开发的版本历史</li>
@@ -122,8 +114,7 @@ Git本地仓库包含代码库还有历史库，在本地的环境开发就可�
 </ul>
 </li>
 </ol>
-<p>#安装Git</p>
-<p>不同环境下的安装方法请自行google，安装完成后需要配置git账号：</p>
+<h1 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h1><p>不同环境下的安装方法请自行google，安装完成后需要配置git账号：</p>
 <pre><code><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user<span class="selector-class">.name</span> <span class="string">"Your Name"</span></div><div class="line">$ git config --global user<span class="selector-class">.email</span> <span class="string">"email@example.com"</span></div></pre></td></tr></table></figure>
 </code></pre><p>因为Git是分布式版本控制系统，所以，每个机器都必须自报家门：你的名字和Email地址。注意git config命令的–global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
 <p>#创建版本库</p>
@@ -295,7 +286,7 @@ git tag v0.9 6224937 //git tag tagname commitid
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="civ693vfj00058oos7s72if6b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="civ7pcihb0003a9osz3u32xde" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -385,11 +376,11 @@ git tag v0.9 6224937 //git tag tagname commitid
           </li>
         
           <li>
-            <a href="/2016/09/01/正则表达式学习/">正则表达式学习</a>
+            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
           </li>
         
           <li>
-            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
+            <a href="/2016/09/01/正则表达式学习/">正则表达式学习</a>
           </li>
         
       </ul>

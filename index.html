@@ -216,7 +216,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/08/ES6笔记/" data-id="civ693vf900018oos82i9cv7q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/08/ES6笔记/" data-id="civ7pcih10001a9osszh4a6i9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -254,10 +254,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#Git是什么？</p>
-<p>Git是目前世界上最先进的分布式版本控制系统（没有之一）。</p>
-<p>#为什么不是svn？</p>
-<ol>
+        <h1 id="Git是什么？"><a href="#Git是什么？" class="headerlink" title="Git是什么？"></a>Git是什么？</h1><pre><code>Git是目前世界上最先进的分布式版本控制系统（没有之一）。
+</code></pre><h1 id="为什么不是svn？"><a href="#为什么不是svn？" class="headerlink" title="为什么不是svn？"></a>为什么不是svn？</h1><ol>
 <li>Git极其强大的分支管理</li>
 <li>Git本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史，而SVN的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行<br> 这样的好处在于：<ul>
 <li>自己可以在脱机环境查看开发的版本历史</li>
@@ -265,8 +263,7 @@
 </ul>
 </li>
 </ol>
-<p>#安装Git</p>
-<p>不同环境下的安装方法请自行google，安装完成后需要配置git账号：</p>
+<h1 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h1><p>不同环境下的安装方法请自行google，安装完成后需要配置git账号：</p>
 <pre><code><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user<span class="selector-class">.name</span> <span class="string">"Your Name"</span></div><div class="line">$ git config --global user<span class="selector-class">.email</span> <span class="string">"email@example.com"</span></div></pre></td></tr></table></figure>
 </code></pre><p>因为Git是分布式版本控制系统，所以，每个机器都必须自报家门：你的名字和Email地址。注意git config命令的–global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
 <p>#创建版本库</p>
@@ -438,7 +435,7 @@ git tag v0.9 6224937 //git tag tagname commitid
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="civ693vfj00058oos7s72if6b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="civ7pcihb0003a9osz3u32xde" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -507,10 +504,88 @@ git tag v0.9 6224937 //git tag tagname commitid
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/08/js作用域与闭包/" data-id="civ693vfx000g8oos92x6k0kp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/08/js作用域与闭包/" data-id="civ7pcii1000fa9osk194d3ds" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/作用域/">作用域</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/闭包/">闭包</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Git在本地及远程仓库中实现版本回退" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/" class="article-date">
+  <time datetime="2016-09-01T11:54:36.000Z" itemprop="datePublished">2016-09-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/版本控制/">版本控制</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通过使用GIT版本恢复命令reset，可以回退版本。</p>
+<p>reset命令有3种方式：</p>
+<p>git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息　　</p>
+<p>git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可　　</p>
+<p>git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容　　　　</p>
+<p>以下是一些reset的示例：</p>
+<p>#回退所有内容到上一个版本　　　　</p>
+<p>git　　reset　　HEAD^　　　　　　</p>
+<p>#回退a.py这个文件的版本到上一个版本　　　　　　</p>
+<p>git　　reset　　HEAD^　　a.py　　　　　　</p>
+<p>#向前回退到第3个版本　　　　　　</p>
+<p>git　　reset　　–soft　　HEAD~3　　　　　　</p>
+<p>#将本地的状态回退到和远程的一样　　　　　　</p>
+<p>git　　reset　　–hard　　origin/master　　　　　　</p>
+<p>#回退到某个版本　　　　　　</p>
+<p>git　　reset　　057d　　　　　　</p>
+<p>#回退到上一次提交的状态，按照某一次的commit完全反向的进行一次commit　　　　　　</p>
+<p>git　　revert　　HEAD　</p>
+<p>如果我们某次修改了某些内容，并且已经commit到本地仓库，而且已经push到远程仓库了</p>
+<p>这种情况下，我们想把本地和远程仓库都回退到某个版本，该怎么做呢？</p>
+<p>前面讲到的git reset只是在本地仓库中回退版本，而远程仓库的版本不会变化</p>
+<p>这样，即时本地reset了，但如果再git pull，那么，远程仓库的内容又会和本地之前版本的内容进行merge</p>
+<p>这并不是我们想要的东西，这时可以有2种办法来解决这个问题：</p>
+<p>直接在远程server的仓库目录下，执行git reset –soft 10efa来回退。注意：在远程不能使用mixed或hard参数</p>
+<p>在本地直接把远程的master分支给删除，然后再把reset后的分支内容给push上去，如下：</p>
+<p>#新建old_master分支做备份　　　　</p>
+<p>git　　branch　　old_master　　　　</p>
+<p>#push到远程　　　　</p>
+<p>git　　push　　origin　　old_master:old_master　　　</p>
+<p>#本地仓库回退到某个版本　　</p>
+<p>git　　reset　　–hard　　bae168　</p>
+<p>#删除远程的master分支</p>
+<p>#如果使用的是bitbucket，先要在项目的设置里面将主分支改为其他，才可删除master分支</p>
+<p>git　　push　　origin　　:master　</p>
+<p>#重新创建master分支　</p>
+<p>git　　push　　origin　　master</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/09/01/Git在本地及远程仓库中实现版本回退/" data-id="civ7pcihu000aa9osi19d3dt5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/版本回退/">版本回退</a></li></ul>
 
     </footer>
   </div>
@@ -605,88 +680,10 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/01/正则表达式学习/" data-id="civ693vg6000s8ooscqmayuno" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/01/正则表达式学习/" data-id="civ7pciij000pa9osekao8a1e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正则表达式/">正则表达式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Git在本地及远程仓库中实现版本回退" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/" class="article-date">
-  <time datetime="2016-09-01T11:54:36.000Z" itemprop="datePublished">2016-09-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/版本控制/">版本控制</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>通过使用GIT版本恢复命令reset，可以回退版本。</p>
-<p>reset命令有3种方式：</p>
-<p>git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息　　</p>
-<p>git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可　　</p>
-<p>git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容　　　　</p>
-<p>以下是一些reset的示例：</p>
-<p>#回退所有内容到上一个版本　　　　</p>
-<p>git　　reset　　HEAD^　　　　　　</p>
-<p>#回退a.py这个文件的版本到上一个版本　　　　　　</p>
-<p>git　　reset　　HEAD^　　a.py　　　　　　</p>
-<p>#向前回退到第3个版本　　　　　　</p>
-<p>git　　reset　　–soft　　HEAD~3　　　　　　</p>
-<p>#将本地的状态回退到和远程的一样　　　　　　</p>
-<p>git　　reset　　–hard　　origin/master　　　　　　</p>
-<p>#回退到某个版本　　　　　　</p>
-<p>git　　reset　　057d　　　　　　</p>
-<p>#回退到上一次提交的状态，按照某一次的commit完全反向的进行一次commit　　　　　　</p>
-<p>git　　revert　　HEAD　</p>
-<p>如果我们某次修改了某些内容，并且已经commit到本地仓库，而且已经push到远程仓库了</p>
-<p>这种情况下，我们想把本地和远程仓库都回退到某个版本，该怎么做呢？</p>
-<p>前面讲到的git reset只是在本地仓库中回退版本，而远程仓库的版本不会变化</p>
-<p>这样，即时本地reset了，但如果再git pull，那么，远程仓库的内容又会和本地之前版本的内容进行merge</p>
-<p>这并不是我们想要的东西，这时可以有2种办法来解决这个问题：</p>
-<p>直接在远程server的仓库目录下，执行git reset –soft 10efa来回退。注意：在远程不能使用mixed或hard参数</p>
-<p>在本地直接把远程的master分支给删除，然后再把reset后的分支内容给push上去，如下：</p>
-<p>#新建old_master分支做备份　　　　</p>
-<p>git　　branch　　old_master　　　　</p>
-<p>#push到远程　　　　</p>
-<p>git　　push　　origin　　old_master:old_master　　　</p>
-<p>#本地仓库回退到某个版本　　</p>
-<p>git　　reset　　–hard　　bae168　</p>
-<p>#删除远程的master分支</p>
-<p>#如果使用的是bitbucket，先要在项目的设置里面将主分支改为其他，才可删除master分支</p>
-<p>git　　push　　origin　　:master　</p>
-<p>#重新创建master分支　</p>
-<p>git　　push　　origin　　master</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/01/Git在本地及远程仓库中实现版本回退/" data-id="civ693vfd00028oos9nd5lwav" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/版本回退/">版本回退</a></li></ul>
 
     </footer>
   </div>
@@ -754,7 +751,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/31/Mac下使用siege做系统压力测试/" data-id="civ693vfq00088oospfisfqkp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/31/Mac下使用siege做系统压力测试/" data-id="civ7pcihq0007a9osamey3uqm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/macports/">macports</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/系统测试/">系统测试</a></li></ul>
@@ -812,7 +809,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/25/webpack中使用ol3-layerswitcher/" data-id="civ693vfy000h8oosb3hqeb48" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/25/webpack中使用ol3-layerswitcher/" data-id="civ7pciib000ka9os4gx6mpr5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Openlayers/">Openlayers</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
@@ -866,7 +863,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/24/NPM安装OL时readECONNRESET的解决方法/" data-id="civ693vft000b8oostgxqs9z7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/24/NPM安装OL时readECONNRESET的解决方法/" data-id="civ7pcihy000da9osaj7hk2ga" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NPM/">NPM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Openlayers/">Openlayers</a></li></ul>
@@ -909,7 +906,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/18/Webpack使用指南/" data-id="civ693vfv000d8oosvxvdedur" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/18/Webpack使用指南/" data-id="civ7pcii8000ja9osn68okned" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
@@ -1034,7 +1031,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/16/是时候学学前端自动化测试了/" data-id="civ693vg3000n8oosbiq15q4m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/16/是时候学学前端自动化测试了/" data-id="civ7pciip000ta9osb1lhexb0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NightWatch/">NightWatch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Selenium/">Selenium</a></li></ul>
@@ -1110,11 +1107,11 @@ hi  匹配字符串中所有的字符串hi
           </li>
         
           <li>
-            <a href="/2016/09/01/正则表达式学习/">正则表达式学习</a>
+            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
           </li>
         
           <li>
-            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
+            <a href="/2016/09/01/正则表达式学习/">正则表达式学习</a>
           </li>
         
       </ul>
