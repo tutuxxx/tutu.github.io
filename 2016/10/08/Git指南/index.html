@@ -21,7 +21,7 @@ Git极其强大的分支管理
 Git本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史，而SVN的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行 这样的好处在于：
 自己可以在脱机环境查看开发的版本历史
 多人开发时如果充当中央仓库的Git仓库挂了，任何一个开发者的仓库都可以作为中">
-<meta property="og:updated_time" content="2016-11-07T06:47:17.000Z">
+<meta property="og:updated_time" content="2016-11-07T06:52:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git指南">
 <meta name="twitter:description" content="Git是什么？Git是目前世界上最先进的分布式版本控制系统（没有之一）。
@@ -114,9 +114,13 @@ Git本地仓库包含代码库还有历史库，在本地的环境开发就可�
 </ul>
 </li>
 </ol>
-<h1 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h1><p>不同环境下的安装方法请自行google，安装完成后需要配置git账号：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user<span class="selector-class">.name</span> <span class="string">"Your Name"</span></div><div class="line">$ git config --global user<span class="selector-class">.email</span> <span class="string">"email@example.com"</span></div></pre></td></tr></table></figure>
-<p>因为Git是分布式版本控制系统，所以，每个机器都必须自报家门：你的名字和Email地址。注意git config命令的–global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
+<h1 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h1><ol>
+<li><p>不同环境下的安装方法请自行google，安装完成后需要配置git账号：</p>
+ <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user<span class="selector-class">.name</span> <span class="string">"Your Name"</span></div><div class="line">git config --global user<span class="selector-class">.email</span> <span class="string">"email@example.com"</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>因为Git是分布式版本控制系统，所以，每个机器都必须自报家门：你的名字和Email地址。注意git config命令的–global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
+</li>
+</ol>
 <h1 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h1><p>版本库既仓库既repository,可以简单理解成一个目录，这个目录里面的所有文件都可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。</p>
 <ol>
 <li><p>创建空目录</p>
@@ -135,19 +139,16 @@ Git本地仓库包含代码库还有历史库，在本地的环境开发就可�
 <li>提交文件到仓库 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m <span class="string">"wrote a readme file"</span> <span class="comment">//提交已添加到仓库的文件，-m为对提交文件的说明</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>#操作版本库</p>
-<ol>
+<h1 id="操作版本库"><a href="#操作版本库" class="headerlink" title="操作版本库"></a>操作版本库</h1><ol>
 <li><p>查看仓库状态及文件变化</p>
  <figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">status</span> //查看仓库当前的状态</div><div class="line">git <span class="built_in">diff</span> readme.txt//如果git <span class="built_in">status</span>告诉你有文件被修改过，可用git <span class="built_in">diff</span>查看当前文件相比上次提交的版本修改了什么内容，既查看工作区和版本库中最新版本的区别</div></pre></td></tr></table></figure>
 </li>
 <li><p>版本切换<br>每当你觉得文件修改到一定程度的时候，就可以“保存一个快照”，这个快照在Git中被称为commit。一旦你把文件改乱了，或者误删了文件，还可以从最近的一个commit恢复，查看历史commit，可用命令：</p>
  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">log</span><span class="comment">//查看详细的历史commit</span></div><div class="line">git <span class="built_in">log</span> --pretty=oneline<span class="comment">//更改log的输出格式（版本号:SHA1计算出来的一个非常大的数字，用十六进制表示，因为是分布式，防止每个人提交时的id冲突)和提交说明</span></div></pre></td></tr></table></figure>
-<p> 在Git中，用HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。HEAD^也可以用commit id,命令中的commitid也可以用它的前几位来代替。</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">reset</span> <span class="comment">--hard HEAD^</span></div></pre></td></tr></table></figure>
-<p> 此时用<code>git log</code>查看历史，发现只有之前的版本了，如果要想回到最新版本（未来）</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">reset</span> <span class="comment">--hard 最新版本的commit id</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
+<p>在Git中，用HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。HEAD^也可以用commit id,命令中的commitid也可以用它的前几位来代替。<br>    <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">reset</span> <span class="comment">--hard HEAD^</span></div></pre></td></tr></table></figure></p>
+<p>此时用<code>git log</code>查看历史，发现只有之前的版本了，如果要想回到最新版本（未来）<br>    <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">reset</span> <span class="comment">--hard 最新版本的commit id</span></div></pre></td></tr></table></figure></p>
 <p>如果你回退后不记得最新版本的commitid了，可用<code>git reflog</code>查看你使用过的所有命令，找到你提交最新版本的哪一行命令，即可看到最新版的commitid，这样就可以回到未来了。<br>git内部有个指向当前版本的head指针，版本切换实际是改变head指针的指向。</p>
 <ol>
 <li><p>工作区和暂存区<br> 工作区：已经初始化过的工作文件夹<br> 版本库：工作区中的隐藏目录.git，版本库中包括叫Stage的暂存区和git自动创建的第一个分支master，及指向master分支的指针。<br> 一次完整的版本添加包括以下两步：<br> 第一步是用git add把文件修改添加到暂存区，暂存区用来保存文件的修改（并不是文件，因为修改一次,然后git add，再修改一次，然后git commit后，用git stauts查看发现依然有未提交的更改，所以提交的其实是第一次修改后的结果，第二次修改并没放入暂存区，所以不会被提交 ）；<br> 第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支<br> 可以理解为：需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改。</p>
@@ -285,7 +286,7 @@ git tag v0.9 6224937 //git tag tagname commitid
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="civ7pgtc40000atosagxi6a4c" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="civ7pnqy80000b8os4blwqx2u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -366,11 +367,11 @@ git tag v0.9 6224937 //git tag tagname commitid
           </li>
         
           <li>
-            <a href="/2016/09/01/正则表达式学习/">正则表达式学习</a>
+            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
           </li>
         
           <li>
-            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
+            <a href="/2016/09/01/正则表达式学习/">正则表达式学习</a>
           </li>
         
       </ul>
