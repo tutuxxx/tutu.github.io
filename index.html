@@ -275,11 +275,12 @@ git tag v0.9 6224937 //git tag tagname commitid
 </ul>
 </li>
 </ol>
+<h1 id="Git使用流程"><a href="#Git使用流程" class="headerlink" title="Git使用流程"></a>Git使用流程</h1><p>克隆代码                       git clone 远程代码<br>创建分支                       git checkout -b branch_name<br>在分支中开发                   无<br>review代码                   无<br>第一轮测试                   无<br>添加代码到分支的暂存区       git add somefile<br>提交代码到分支               git commit -m “本次提交的注释”<br>切换到主版本                   git checkout master<br>获取远程最新代码               git pull origin master<br>合并某分支到master分支       git merge branch_name<br>解决合并时产生的冲突           无<br>第二轮测试                   无<br>准备上线文档                   无<br>获取远程最新代码               git pull origin master<br>推送master分支               git push origin master<br>通知上线                       无<br>没有问题了删除本地分支           git branch -d branch_name</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="civ7pvm0s0000c0osavibcv3o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/08/Git指南/" data-id="ciz5et7w800068vfy6v3owtyg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -442,7 +443,7 @@ git tag v0.9 6224937 //git tag tagname commitid
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/08/ES6笔记/" data-id="civ7pvm1m000ec0osncldo83x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/08/ES6笔记/" data-id="ciz5et7w000028vfyzqbljzj8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -511,10 +512,88 @@ git tag v0.9 6224937 //git tag tagname commitid
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/08/js作用域与闭包/" data-id="civ7pvm22000rc0osbv55tp5o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/08/js作用域与闭包/" data-id="ciz5et7wk000i8vfyunq0u1v4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/作用域/">作用域</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/闭包/">闭包</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Git在本地及远程仓库中实现版本回退" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/" class="article-date">
+  <time datetime="2016-09-01T11:54:36.000Z" itemprop="datePublished">2016-09-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/版本控制/">版本控制</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通过使用GIT版本恢复命令reset，可以回退版本。</p>
+<p>reset命令有3种方式：</p>
+<p>git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息　　</p>
+<p>git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可　　</p>
+<p>git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容　　　　</p>
+<p>以下是一些reset的示例：</p>
+<p>#回退所有内容到上一个版本　　　　</p>
+<p>git　　reset　　HEAD^　　　　　　</p>
+<p>#回退a.py这个文件的版本到上一个版本　　　　　　</p>
+<p>git　　reset　　HEAD^　　a.py　　　　　　</p>
+<p>#向前回退到第3个版本　　　　　　</p>
+<p>git　　reset　　–soft　　HEAD~3　　　　　　</p>
+<p>#将本地的状态回退到和远程的一样　　　　　　</p>
+<p>git　　reset　　–hard　　origin/master　　　　　　</p>
+<p>#回退到某个版本　　　　　　</p>
+<p>git　　reset　　057d　　　　　　</p>
+<p>#回退到上一次提交的状态，按照某一次的commit完全反向的进行一次commit　　　　　　</p>
+<p>git　　revert　　HEAD　</p>
+<p>如果我们某次修改了某些内容，并且已经commit到本地仓库，而且已经push到远程仓库了</p>
+<p>这种情况下，我们想把本地和远程仓库都回退到某个版本，该怎么做呢？</p>
+<p>前面讲到的git reset只是在本地仓库中回退版本，而远程仓库的版本不会变化</p>
+<p>这样，即时本地reset了，但如果再git pull，那么，远程仓库的内容又会和本地之前版本的内容进行merge</p>
+<p>这并不是我们想要的东西，这时可以有2种办法来解决这个问题：</p>
+<p>直接在远程server的仓库目录下，执行git reset –soft 10efa来回退。注意：在远程不能使用mixed或hard参数</p>
+<p>在本地直接把远程的master分支给删除，然后再把reset后的分支内容给push上去，如下：</p>
+<p>#新建old_master分支做备份　　　　</p>
+<p>git　　branch　　old_master　　　　</p>
+<p>#push到远程　　　　</p>
+<p>git　　push　　origin　　old_master:old_master　　　</p>
+<p>#本地仓库回退到某个版本　　</p>
+<p>git　　reset　　–hard　　bae168　</p>
+<p>#删除远程的master分支</p>
+<p>#如果使用的是bitbucket，先要在项目的设置里面将主分支改为其他，才可删除master分支</p>
+<p>git　　push　　origin　　:master　</p>
+<p>#重新创建master分支　</p>
+<p>git　　push　　origin　　master</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/09/01/Git在本地及远程仓库中实现版本回退/" data-id="ciz5et7vu00008vfy2c2brriy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/版本回退/">版本回退</a></li></ul>
 
     </footer>
   </div>
@@ -609,88 +688,10 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/01/正则表达式学习/" data-id="civ7pvm24000tc0osmx17ycj6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/01/正则表达式学习/" data-id="ciz5et7wv000u8vfy099zsrck" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正则表达式/">正则表达式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Git在本地及远程仓库中实现版本回退" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/" class="article-date">
-  <time datetime="2016-09-01T11:54:36.000Z" itemprop="datePublished">2016-09-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/版本控制/">版本控制</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>通过使用GIT版本恢复命令reset，可以回退版本。</p>
-<p>reset命令有3种方式：</p>
-<p>git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息　　</p>
-<p>git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可　　</p>
-<p>git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容　　　　</p>
-<p>以下是一些reset的示例：</p>
-<p>#回退所有内容到上一个版本　　　　</p>
-<p>git　　reset　　HEAD^　　　　　　</p>
-<p>#回退a.py这个文件的版本到上一个版本　　　　　　</p>
-<p>git　　reset　　HEAD^　　a.py　　　　　　</p>
-<p>#向前回退到第3个版本　　　　　　</p>
-<p>git　　reset　　–soft　　HEAD~3　　　　　　</p>
-<p>#将本地的状态回退到和远程的一样　　　　　　</p>
-<p>git　　reset　　–hard　　origin/master　　　　　　</p>
-<p>#回退到某个版本　　　　　　</p>
-<p>git　　reset　　057d　　　　　　</p>
-<p>#回退到上一次提交的状态，按照某一次的commit完全反向的进行一次commit　　　　　　</p>
-<p>git　　revert　　HEAD　</p>
-<p>如果我们某次修改了某些内容，并且已经commit到本地仓库，而且已经push到远程仓库了</p>
-<p>这种情况下，我们想把本地和远程仓库都回退到某个版本，该怎么做呢？</p>
-<p>前面讲到的git reset只是在本地仓库中回退版本，而远程仓库的版本不会变化</p>
-<p>这样，即时本地reset了，但如果再git pull，那么，远程仓库的内容又会和本地之前版本的内容进行merge</p>
-<p>这并不是我们想要的东西，这时可以有2种办法来解决这个问题：</p>
-<p>直接在远程server的仓库目录下，执行git reset –soft 10efa来回退。注意：在远程不能使用mixed或hard参数</p>
-<p>在本地直接把远程的master分支给删除，然后再把reset后的分支内容给push上去，如下：</p>
-<p>#新建old_master分支做备份　　　　</p>
-<p>git　　branch　　old_master　　　　</p>
-<p>#push到远程　　　　</p>
-<p>git　　push　　origin　　old_master:old_master　　　</p>
-<p>#本地仓库回退到某个版本　　</p>
-<p>git　　reset　　–hard　　bae168　</p>
-<p>#删除远程的master分支</p>
-<p>#如果使用的是bitbucket，先要在项目的设置里面将主分支改为其他，才可删除master分支</p>
-<p>git　　push　　origin　　:master　</p>
-<p>#重新创建master分支　</p>
-<p>git　　push　　origin　　master</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/01/Git在本地及远程仓库中实现版本回退/" data-id="civ7pvm1b0005c0os3wabe65f" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/版本回退/">版本回退</a></li></ul>
 
     </footer>
   </div>
@@ -758,7 +759,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/31/Mac下使用siege做系统压力测试/" data-id="civ7pvm1j000ac0osb4p00xo2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/31/Mac下使用siege做系统压力测试/" data-id="ciz5et7wa00088vfye15tlno2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/macports/">macports</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/系统测试/">系统测试</a></li></ul>
@@ -816,7 +817,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/25/webpack中使用ol3-layerswitcher/" data-id="civ7pvm1r000lc0ospjjcz6f0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/25/webpack中使用ol3-layerswitcher/" data-id="ciz5et7wp000o8vfyzm1yib73" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Openlayers/">Openlayers</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
@@ -870,7 +871,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/24/NPM安装OL时readECONNRESET的解决方法/" data-id="civ7pvm1p000ic0osjmgu8c1o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/24/NPM安装OL时readECONNRESET的解决方法/" data-id="ciz5et7wf000e8vfykf7bhsq1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NPM/">NPM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Openlayers/">Openlayers</a></li></ul>
@@ -913,7 +914,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/18/Webpack使用指南/" data-id="civ7pvm1o000gc0os018s6kl1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/18/Webpack使用指南/" data-id="ciz5et7wm000k8vfy5bud4wf1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
@@ -1038,7 +1039,7 @@ hi  匹配字符串中所有的字符串hi
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/16/是时候学学前端自动化测试了/" data-id="civ7pvm27000wc0os86jvoft1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/16/是时候学学前端自动化测试了/" data-id="ciz5et7wr000q8vfyqsxfidwp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NightWatch/">NightWatch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Selenium/">Selenium</a></li></ul>
@@ -1063,7 +1064,7 @@ hi  匹配字符串中所有的字符串hi
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ES6/">ES6</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NPM/">NPM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openlayers/">Openlayers</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端构建/">前端构建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端测试/">前端测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端规范/">前端规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/正则表达式/">正则表达式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本控制/">版本控制</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ES6/">ES6</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NPM/">NPM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openlayers/">Openlayers</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端构建/">前端构建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端测试/">前端测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端规范/">前端规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/正则表达式/">正则表达式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本控制/">版本控制</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1072,7 +1073,7 @@ hi  匹配字符串中所有的字符串hi
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESLint/">ESLint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NPM/">NPM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NightWatch/">NightWatch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openlayers/">Openlayers</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Selenium/">Selenium</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macports/">macports</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/作用域/">作用域</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式/">正则表达式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本回退/">版本回退</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统测试/">系统测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闭包/">闭包</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESLint/">ESLint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NPM/">NPM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NightWatch/">NightWatch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openlayers/">Openlayers</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Selenium/">Selenium</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macports/">macports</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/作用域/">作用域</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式/">正则表达式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本回退/">版本回退</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统测试/">系统测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闭包/">闭包</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1081,7 +1082,7 @@ hi  匹配字符串中所有的字符串hi
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/ESLint/" style="font-size: 10px;">ESLint</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/NPM/" style="font-size: 10px;">NPM</a> <a href="/tags/NightWatch/" style="font-size: 10px;">NightWatch</a> <a href="/tags/Openlayers/" style="font-size: 20px;">Openlayers</a> <a href="/tags/Selenium/" style="font-size: 10px;">Selenium</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/macports/" style="font-size: 10px;">macports</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/正则表达式/" style="font-size: 10px;">正则表达式</a> <a href="/tags/版本回退/" style="font-size: 10px;">版本回退</a> <a href="/tags/系统测试/" style="font-size: 10px;">系统测试</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+      <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/ESLint/" style="font-size: 10px;">ESLint</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/NPM/" style="font-size: 10px;">NPM</a> <a href="/tags/NightWatch/" style="font-size: 10px;">NightWatch</a> <a href="/tags/Openlayers/" style="font-size: 20px;">Openlayers</a> <a href="/tags/Selenium/" style="font-size: 10px;">Selenium</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/macports/" style="font-size: 10px;">macports</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/正则表达式/" style="font-size: 10px;">正则表达式</a> <a href="/tags/版本回退/" style="font-size: 10px;">版本回退</a> <a href="/tags/系统测试/" style="font-size: 10px;">系统测试</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
     </div>
   </div>
 
@@ -1090,7 +1091,7 @@ hi  匹配字符串中所有的字符串hi
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1114,11 +1115,11 @@ hi  匹配字符串中所有的字符串hi
           </li>
         
           <li>
-            <a href="/2016/09/01/正则表达式学习/">正则表达式学习</a>
+            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
           </li>
         
           <li>
-            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
+            <a href="/2016/09/01/正则表达式学习/">正则表达式学习</a>
           </li>
         
       </ul>
@@ -1133,7 +1134,7 @@ hi  匹配字符串中所有的字符串hi
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2016 TuTu<br>
+      &copy; 2017 TuTu<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

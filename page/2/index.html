@@ -158,7 +158,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/14/在Vue+Babel+Webpack环境中使用ESLint/" data-id="civ7pvm1y000pc0oso8j1qnsr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/14/在Vue+Babel+Webpack环境中使用ESLint/" data-id="ciz5et7ww000w8vfyfw0cp6ye" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ESLint/">ESLint</a></li></ul>
@@ -209,7 +209,218 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/08/10/JavaScript学习之路-简介/" data-id="civ7pvm1f0007c0osucepo34g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/08/10/JavaScript学习之路-简介/" data-id="ciz5et7we000c8vfy4o6ho611" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaScript简要学习" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/23/JavaScript简要学习/" class="article-date">
+  <time datetime="2014-10-23T05:02:31.000Z" itemprop="datePublished">2014-10-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/23/JavaScript简要学习/">JavaScript简要学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JavaScript简介"><a href="#JavaScript简介" class="headerlink" title="JavaScript简介"></a>JavaScript简介</h1><p>JavaScript是一种运行在浏览器中的解释型的编程语言。在Web世界里，只有JavaScript能跨平台、跨浏览器驱动网页，与用户交互。ECMAScript:是一种语言标准，而JavaScript是网景公司对ECMAScript标准的一种实现。</p>
+<h1 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h1><h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><ol>
+<li>JavaScript并不强制要求在每个语句的结尾加;，浏览器中负责执行JavaScript代码的引擎会自动在每个语句的结尾补上;。但是让JavaScript引擎自动加分号在某些情况下会改变程序的语义，所以不推荐。</li>
+<li>行注释//，块注释/*…*/。</li>
+<li>JavaScript严格区分大小写</li>
+</ol>
+<hr>
+<h2 id="数据类型和变量"><a href="#数据类型和变量" class="headerlink" title="数据类型和变量"></a>数据类型和变量</h2><ol>
+<li>六种基本类型：string、number、boolen、object、null、undefined</li>
+<li>&amp;&amp;运算是与运算，只有所有都为true，&amp;&amp;运算结果才是true；||运算是或运算，只要其中有一个为true，||运算结果就是true；!运算是非运算，它是一个单目运算符，把true变成false，false变成true。</li>
+<li>==比较，它会自动转换数据类型再比较；===比较，它不会自动转换数据类型，如果数据类型不一致，返回false，如果一致，再比较。</li>
+<li><p>NaN这个特殊的Number与所有其他值都不相等，包括它自己： </p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="literal">NaN</span> == <span class="literal">NaN</span>; <span class="comment">// false</span></div><div class="line"><span class="literal">NaN</span> === <span class="literal">NaN</span>; <span class="comment">// false</span></div><div class="line"><span class="built_in">isNaN</span>(<span class="literal">NaN</span>); <span class="comment">// true，判断NaN的唯一方法</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>浮点数相等比较,浮点数在运算过程中会产生误差，因为计算机无法精确表示无限循环小数。要比较两个浮点数是否相等，只能计算它们之差的绝对值，看是否小于某个阈值：</p>
+ <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span> / <span class="number">3</span> === (<span class="number">1</span> - <span class="number">2</span> / <span class="number">3</span>); <span class="comment">// false</span></div><div class="line">Math.abs(<span class="number">1</span> / <span class="number">3</span> - (<span class="number">1</span> - <span class="number">2</span> / <span class="number">3</span>)) &lt; <span class="number">0.0000001</span>; <span class="comment">// true</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>用null表示一个空的值，而undefined表示值未定义。</p>
+</li>
+<li><p>JavaScript的数组可以包括任意数据类型。</p>
+ <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3.14</span>, 'Hello', null, true];</div><div class="line">new Array(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>); <span class="comment">// 另一种定义方式，创建了数组[1, 2, 3]</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>变量在JavaScript中就是用一个变量名表示，变量名是大小写英文、数字、$和_的组合，且不能用数字开头。变量名也不能是JavaScript的关键字，如if、while等。申明一个变量用var语句。</p>
+</li>
+<li>变量名也可以用中文，但是，请不要给自己找麻烦。</li>
+<li><p>如果一个变量没有通过var申明就被使用，那么该变量就自动被申明为全局变量。为了修补JavaScript这一严重设计缺陷，ECMA在后续规范中推出了strict模式，在strict模式下运行的JavaScript代码，强制通过var申明变量，未使用var申明变量就使用的，将导致运行错误。<br>启用strict模式的方法是在JavaScript代码的第一行写上：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span>;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>不支持strict模式的浏览器会把它当做一个字符串语句执行，支持strict模式的浏览器将开启strict模式运行JavaScript。</p>
+<hr>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><ol>
+<li>‘I\’m \”OK\”!’;表示的字符串内容是：I’m “OK”!</li>
+<li>转义字符\可以转义很多字符，比如\n表示换行，\t表示制表符，字符\本身也要转义，所以\表示的字符就是\</li>
+<li><p>由于多行字符串用\n写起来比较费事，所以最新的ES6标准新增了一种多行字符串的表示方法，用<code>...</code>表示：</p>
+ <figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">`这是一个</div><div class="line">多行</div><div class="line">字符串`;</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果有很多变量需要连接，用+号就比较麻烦。ES6新增了一种模板字符串，表示方法和上面的多行字符串一样，但是它会自动替换字符串中的变量：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> message = <span class="string">'你好, '</span> + name + <span class="string">', 你今年'</span> + age + <span class="string">'岁了!'</span>;<span class="comment">//es5</span></div><div class="line"><span class="keyword">var</span> message = <span class="string">`你好, <span class="subst">$&#123;name&#125;</span>, 你今年<span class="subst">$&#123;age&#125;</span>岁了!`</span>;<span class="comment">//es6</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>操作字符串</p>
+ <figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var s = <span class="string">'Hello'</span>;</div><div class="line">s.length; <span class="regexp">//</span> <span class="number">5</span></div><div class="line">s[<span class="number">0</span>]; <span class="regexp">//</span> <span class="string">'H'</span></div><div class="line">s[<span class="number">13</span>]; <span class="regexp">//</span> undefined 超出范围的索引不会报错，但一律返回undefined</div><div class="line">s.toUpperCase(); <span class="regexp">//</span> 返回<span class="string">'HELLO'</span></div><div class="line">s.toLowerCase(); <span class="regexp">//</span> 返回<span class="string">'hello'</span></div><div class="line">s.indexOf(<span class="string">'H'</span>); <span class="regexp">//</span> 返回<span class="number">0</span></div><div class="line">s.indexOf(<span class="string">'World'</span>); <span class="regexp">//</span> 没有找到指定的子串，返回-<span class="number">1</span></div><div class="line">s.substring(<span class="number">0</span>, <span class="number">5</span>); <span class="regexp">//</span> 从索引<span class="number">0</span>开始到<span class="number">5</span>（不包括<span class="number">5</span>），返回<span class="string">'Hello'</span></div><div class="line">s.substring(<span class="number">3</span>); <span class="regexp">//</span> 从索引<span class="number">3</span>开始到结束，返回<span class="string">'lo'</span></div><div class="line"></div><div class="line"><span class="regexp">//</span>如果对字符串的某个索引赋值，不会有任何错误，但是，也没有任何效果:</div><div class="line">var s = <span class="string">'Test'</span>;</div><div class="line">s[<span class="number">0</span>] = <span class="string">'X'</span>;</div><div class="line">alert(s); <span class="regexp">//</span> s仍然为<span class="string">'Test'</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><ol>
+<li><p>直接给Array的length赋一个新的值会导致Array大小的变化：</p>
+ <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</div><div class="line">arr.length; <span class="comment">// 3</span></div><div class="line">arr.length = <span class="number">6</span>;</div><div class="line">arr; <span class="comment">// arr变为[1, 2, 3, undefined, undefined, undefined]</span></div><div class="line">arr.length = <span class="number">2</span>;</div><div class="line">arr; <span class="comment">// arr变为[1, 2]</span></div><div class="line">arr[<span class="number">5</span>] = 'x';</div><div class="line">arr; <span class="comment">// arr变为[1, 2, 3, undefined, undefined, 'x']</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>不建议直接修改Array的大小，访问索引时要确保索引不会越界。</p>
+<ol>
+<li><p>操作数组</p>
+ <figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">var arr = [<span class="number">10</span>, <span class="number">20</span>, <span class="string">'30'</span>, <span class="string">'xyz'</span>];</div><div class="line"></div><div class="line">arr.indexOf(<span class="number">30</span>); <span class="regexp">//</span> 元素<span class="number">30</span>没有找到，返回-<span class="number">1</span></div><div class="line">arr.indexOf(<span class="string">'30'</span>); <span class="regexp">//</span> 元素<span class="string">'30'</span>的索引为<span class="number">2</span></div><div class="line"></div><div class="line">arr.slice(<span class="number">0</span>, <span class="number">3</span>); <span class="regexp">//</span> 从索引<span class="number">0</span>开始，到索引<span class="number">3</span>结束，但不包括索引<span class="number">3</span>: [<span class="number">10</span>, <span class="number">20</span>, <span class="string">'30'</span>],slice()的起止参数包括开始索引，不包括结束索引。</div><div class="line">arr.slice(<span class="number">3</span>); <span class="regexp">//</span> 从索引<span class="number">3</span>开始到结束: [<span class="string">'xyz'</span>]</div><div class="line"></div><div class="line">var aCopy = arr.slice();</div><div class="line">aCopy; <span class="regexp">//</span> [<span class="number">10</span>, <span class="number">20</span>, <span class="string">'30'</span>, <span class="string">'xyz'</span>]</div><div class="line">aCopy === arr; <span class="regexp">//</span> false，Javascript不能直接用==或者===来判断两个数组是否相等。要判断JS中的两个数组是否相同，需要先将数组转换为字符串，再作比较</div><div class="line">aCopy.toString() === arr.toString(); <span class="regexp">//</span> true</div><div class="line"></div><div class="line">arr.push(<span class="string">'A'</span>, <span class="string">'B'</span>); <span class="regexp">//</span> arr: [<span class="number">10</span>, <span class="number">20</span>, <span class="string">'30'</span>, <span class="string">'xyz'</span>,<span class="string">'A'</span>, <span class="string">'B'</span>]</div><div class="line">arr.pop(); <span class="regexp">//</span> pop()返回<span class="string">'B'</span></div><div class="line">arr; <span class="regexp">//</span>arr: [<span class="number">10</span>, <span class="number">20</span>, <span class="string">'30'</span>, <span class="string">'xyz'</span>,<span class="string">'A'</span>]</div><div class="line"></div><div class="line">arr.unshift(<span class="string">'A'</span>, <span class="string">'B'</span>); <span class="regexp">//</span> arr: [<span class="string">'A'</span>, <span class="string">'B'</span>,<span class="number">10</span>, <span class="number">20</span>, <span class="string">'30'</span>, <span class="string">'xyz'</span>]</div><div class="line">arr.shift(); <span class="regexp">//</span> <span class="string">'A'</span></div><div class="line">arr; <span class="regexp">//</span>arr: [<span class="string">'B'</span>,<span class="number">10</span>, <span class="number">20</span>, <span class="string">'30'</span>, <span class="string">'xyz'</span>]</div><div class="line"></div><div class="line">arr.sort();</div><div class="line">arr; <span class="regexp">//</span> [<span class="number">10</span>, <span class="number">20</span>, <span class="string">'30'</span>, <span class="string">'xyz'</span>]</div><div class="line"></div><div class="line">arr.reverse();</div><div class="line">arr; <span class="regexp">//</span> [ <span class="string">'xyz'</span>,<span class="string">'30'</span>, <span class="number">20</span>,<span class="number">10</span>]</div><div class="line"></div><div class="line"><span class="regexp">//</span> 从索引<span class="number">2</span>开始删除<span class="number">3</span>个元素,然后再添加两个元素:</div><div class="line">arr.splice(<span class="number">2</span>, <span class="number">2</span>, <span class="string">'Google'</span>, <span class="string">'Facebook'</span>); <span class="regexp">//</span> 返回删除的元素 [<span class="string">'30'</span>, <span class="string">'xyz'</span>]</div><div class="line">arr; <span class="regexp">//</span> [<span class="number">10</span>, <span class="number">20</span>, <span class="string">'Google'</span>, <span class="string">'Facebook'</span>]</div><div class="line"><span class="regexp">//</span> 只删除,不添加:</div><div class="line">arr.splice(<span class="number">2</span>, <span class="number">2</span>); <span class="regexp">//</span> [<span class="string">'30'</span>, <span class="string">'xyz'</span>]</div><div class="line">arr; <span class="regexp">//</span> [<span class="number">10</span>, <span class="number">20</span>]</div><div class="line"><span class="regexp">//</span> 只添加,不删除:</div><div class="line">arr.splice(<span class="number">2</span>, <span class="number">0</span>, <span class="string">'Google'</span>, <span class="string">'Facebook'</span>); <span class="regexp">//</span> 返回[],因为没有删除任何元素</div><div class="line">arr; <span class="regexp">//</span> [<span class="number">10</span>, <span class="number">20</span>, <span class="string">'30'</span>, <span class="string">'xyz'</span>,<span class="string">'Google'</span>, <span class="string">'Facebook'</span>]</div><div class="line"></div><div class="line">var added = arr.concat([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</div><div class="line">added; <span class="regexp">//</span> [<span class="number">10</span>, <span class="number">20</span>, <span class="string">'30'</span>, <span class="string">'xyz'</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</div><div class="line">arr; <span class="regexp">//</span> [<span class="number">10</span>, <span class="number">20</span>, <span class="string">'30'</span>, <span class="string">'xyz'</span>],concat()方法并没有修改当前Array，而是返回了一个新的Array。</div><div class="line">arr.concat(<span class="number">1</span>, <span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]);<span class="regexp">//</span> [<span class="number">10</span>, <span class="number">20</span>, <span class="string">'30'</span>, <span class="string">'xyz'</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],concat()方法可以接收任意个元素和Array，并且自动把Array拆开，然后全部添加到新的Array里。</div><div class="line"></div><div class="line">arr.join(<span class="string">'-'</span>); <span class="regexp">//</span> <span class="string">'10-20-30-xyz'</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>1.基本</p>
+<pre><code><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> xiaoming = &#123;</div><div class="line">    name: <span class="string">'小明'</span></div><div class="line">&#125;;</div><div class="line">xiaoming.age; <span class="comment">// undefined</span></div><div class="line"></div><div class="line">xiaoming.age = <span class="number">18</span>; <span class="comment">// 新增一个age属性</span></div><div class="line">xiaoming.age; <span class="comment">// 18</span></div><div class="line"></div><div class="line"><span class="keyword">delete</span> xiaoming.age; <span class="comment">// 删除age属性</span></div><div class="line">xiaoming.age; <span class="comment">// undefined</span></div><div class="line"></div><div class="line"><span class="keyword">delete</span> xiaoming[<span class="string">'name'</span>]; <span class="comment">// 删除name属性</span></div><div class="line">xiaoming.name; <span class="comment">// undefined</span></div><div class="line"><span class="keyword">delete</span> xiaoming.school; <span class="comment">// 删除一个不存在的school属性也不会报错</span></div><div class="line"></div><div class="line"><span class="string">'name'</span> <span class="keyword">in</span> xiaoming; <span class="comment">// true,检测xiaoming是否拥有某一属性</span></div><div class="line"></div><div class="line"><span class="string">'toString'</span> <span class="keyword">in</span> xiaoming; <span class="comment">// true,如果in判断一个属性存在，这个属性不一定是xiaoming的，它可能是xiaoming继承得到的：因为toString定义在object对象中，而所有对象最终都会在原型链上指向object，所以xiaoming也拥有toString属性。</span></div><div class="line"></div><div class="line">xiaoming.hasOwnProperty(<span class="string">'name'</span>); <span class="comment">// true,判断一个属性是否是xiaoming自身拥有的，而不是继承得到的</span></div></pre></td></tr></table></figure>
+</code></pre><hr>
+<h2 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h2><ol>
+<li><p>else语句是可选的。如果语句块只包含一条语句，那么可以省略{}(不推荐)：</p>
+ <figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> age = <span class="number">20</span>;</div><div class="line"><span class="keyword">if</span> (age &gt;= <span class="number">18</span>)</div><div class="line">    alert(<span class="string">'adult'</span>);</div><div class="line"><span class="function"><span class="keyword">else</span></span></div><div class="line">    <span class="title">alert</span>(<span class="params"><span class="string">'teenager'</span></span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>JavaScript把null、undefined、0、NaN和空字符串’’视为false，其他值一概视为true。</p>
+</li>
+</ol>
+<hr>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><ol>
+<li><p>for循环的3个条件都是可以省略的，如果没有退出循环的判断条件，就必须使用break语句退出循环，否则就是死循环：</p>
+ <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> x = <span class="number">0</span>;</div><div class="line"><span class="keyword">for</span> (;;) &#123; <span class="comment">// 将无限循环下去</span></div><div class="line">    <span class="keyword">if</span> (x &gt; <span class="number">100</span>) &#123;</div><div class="line">        <span class="keyword">break</span>; <span class="comment">// 通过if判断来退出循环</span></div><div class="line">    &#125;</div><div class="line">    x ++;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>for..in</p>
+ <figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">var o = &#123;</div><div class="line">    name: <span class="string">'Jack'</span>,</div><div class="line">    age: <span class="number">20</span>,</div><div class="line">    city: <span class="string">'Beijing'</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">for</span> (var key <span class="keyword">in</span> o) &#123;</div><div class="line">    alert(key); <span class="regexp">//</span> <span class="string">'name'</span>, <span class="string">'age'</span>, <span class="string">'city'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="regexp">//</span>要过滤掉对象继承的属性，用hasOwnProperty()来实现：</div><div class="line">var o = &#123;</div><div class="line">    name: <span class="string">'Jack'</span>,</div><div class="line">    age: <span class="number">20</span>,</div><div class="line">    city: <span class="string">'Beijing'</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">for</span> (var key <span class="keyword">in</span> o) &#123;</div><div class="line">    <span class="keyword">if</span> (o.hasOwnProperty(key)) &#123;</div><div class="line">        alert(key); <span class="regexp">//</span> <span class="string">'name'</span>, <span class="string">'age'</span>, <span class="string">'city'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="regexp">//</span>由于Array也是对象，而它的每个元素的索引被视为对象的属性，因此，<span class="keyword">for</span> ... <span class="keyword">in</span>循环可以直接循环出Array的索引：</div><div class="line">var a = [<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>];</div><div class="line"><span class="keyword">for</span> (var i <span class="keyword">in</span> a) &#123;</div><div class="line">    alert(i); <span class="regexp">//</span> <span class="string">'0'</span>, <span class="string">'1'</span>, <span class="string">'2'</span>,得到的是String而不是Number。</div><div class="line">    alert(a[i]); <span class="regexp">//</span> <span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>for循环在已知循环的初始和结束条件时非常有用。while循环只有一个判断条件，条件满足，就不断循环，条件不满足时则退出循环。</p>
+</li>
+<li>do { … } while()循环，它和while循环的唯一区别在于，不是在每次循环开始的时候判断条件，而是在每次循环完成的时候判断条件,用do { … } while()，循环体会至少执行1次。</li>
+</ol>
+<hr>
+<h2 id="Map和Set"><a href="#Map和Set" class="headerlink" title="Map和Set"></a>Map和Set</h2><ol>
+<li></li>
+</ol>
+<hr>
+<h2 id="iterable"><a href="#iterable" class="headerlink" title="iterable"></a>iterable</h2><hr>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><hr>
+<h2 id="函数定义和调用"><a href="#函数定义和调用" class="headerlink" title="函数定义和调用"></a>函数定义和调用</h2><hr>
+<h2 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h2><hr>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><hr>
+<h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><hr>
+<h3 id="map-reduce"><a href="#map-reduce" class="headerlink" title="map/reduce"></a>map/reduce</h3><hr>
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><hr>
+<h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><hr>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><hr>
+<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><hr>
+<h2 id="generator"><a href="#generator" class="headerlink" title="generator"></a>generator</h2><hr>
+<h1 id="标准对象"><a href="#标准对象" class="headerlink" title="标准对象"></a>标准对象</h1><hr>
+<h2 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h2><hr>
+<h2 id="RegExp"><a href="#RegExp" class="headerlink" title="RegExp"></a>RegExp</h2><hr>
+<h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h2><hr>
+<h1 id="面向对象编程"><a href="#面向对象编程" class="headerlink" title="面向对象编程"></a>面向对象编程</h1><hr>
+<h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><hr>
+<h2 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h2><hr>
+<h2 id="class继承"><a href="#class继承" class="headerlink" title="class继承"></a>class继承</h2><hr>
+<h1 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h1><hr>
+<h2 id="浏览器对象"><a href="#浏览器对象" class="headerlink" title="浏览器对象"></a>浏览器对象</h2><hr>
+<h2 id="操作DOM"><a href="#操作DOM" class="headerlink" title="操作DOM"></a>操作DOM</h2><hr>
+<h3 id="更新DOM"><a href="#更新DOM" class="headerlink" title="更新DOM"></a>更新DOM</h3><hr>
+<h3 id="插入DOM"><a href="#插入DOM" class="headerlink" title="插入DOM"></a>插入DOM</h3><hr>
+<h3 id="删除DOM"><a href="#删除DOM" class="headerlink" title="删除DOM"></a>删除DOM</h3><hr>
+<h2 id="操作表单"><a href="#操作表单" class="headerlink" title="操作表单"></a>操作表单</h2><hr>
+<h2 id="操作文件"><a href="#操作文件" class="headerlink" title="操作文件"></a>操作文件</h2><hr>
+<h2 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h2><hr>
+<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><hr>
+<h2 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas"></a>Canvas</h2><hr>
+<h1 id="Jquery"><a href="#Jquery" class="headerlink" title="Jquery"></a>Jquery</h1><hr>
+<h2 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h2><hr>
+<h3 id="层级选择器"><a href="#层级选择器" class="headerlink" title="层级选择器"></a>层级选择器</h3><hr>
+<h3 id="查找和过滤"><a href="#查找和过滤" class="headerlink" title="查找和过滤"></a>查找和过滤</h3><hr>
+<h2 id="操作DOM-1"><a href="#操作DOM-1" class="headerlink" title="操作DOM"></a>操作DOM</h2><hr>
+<h3 id="修改DOM结构"><a href="#修改DOM结构" class="headerlink" title="修改DOM结构"></a>修改DOM结构</h3><hr>
+<h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><hr>
+<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><hr>
+<h2 id="AJAX-1"><a href="#AJAX-1" class="headerlink" title="AJAX"></a>AJAX</h2><hr>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><hr>
+<h1 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h1><hr>
+<h2 id="错误传播"><a href="#错误传播" class="headerlink" title="错误传播"></a>错误传播</h2><hr>
+<h2 id="异步错误处理"><a href="#异步错误处理" class="headerlink" title="异步错误处理"></a>异步错误处理</h2><hr>
+<h1 id="underscore"><a href="#underscore" class="headerlink" title="underscore"></a>underscore</h1><hr>
+<h2 id="Collections"><a href="#Collections" class="headerlink" title="Collections"></a>Collections</h2><hr>
+<h2 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h2><hr>
+<h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><hr>
+<h2 id="Objects"><a href="#Objects" class="headerlink" title="Objects"></a>Objects</h2><hr>
+<h2 id="Chaining"><a href="#Chaining" class="headerlink" title="Chaining"></a>Chaining</h2><hr>
+<h1 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h1><hr>
+<h2 id="安装Node和NPM"><a href="#安装Node和NPM" class="headerlink" title="安装Node和NPM"></a>安装Node和NPM</h2><hr>
+<h2 id="第一个Node程序"><a href="#第一个Node程序" class="headerlink" title="第一个Node程序"></a>第一个Node程序</h2><hr>
+<h2 id="搭建Node开发环境"><a href="#搭建Node开发环境" class="headerlink" title="搭建Node开发环境"></a>搭建Node开发环境</h2><hr>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><hr>
+<h2 id="基本模块"><a href="#基本模块" class="headerlink" title="基本模块"></a>基本模块</h2><hr>
+<h3 id="fs"><a href="#fs" class="headerlink" title="fs"></a>fs</h3><hr>
+<h3 id="stream"><a href="#stream" class="headerlink" title="stream"></a>stream</h3><hr>
+<h3 id="http"><a href="#http" class="headerlink" title="http"></a>http</h3><hr>
+<h3 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h3><hr>
+<h1 id="WEB开发"><a href="#WEB开发" class="headerlink" title="WEB开发"></a>WEB开发</h1><hr>
+<h2 id="koa"><a href="#koa" class="headerlink" title="koa"></a>koa</h2><hr>
+<h3 id="koa入门"><a href="#koa入门" class="headerlink" title="koa入门"></a>koa入门</h3><hr>
+<h3 id="处理URL"><a href="#处理URL" class="headerlink" title="处理URL"></a>处理URL</h3><hr>
+<h3 id="使用Nunjucks"><a href="#使用Nunjucks" class="headerlink" title="使用Nunjucks"></a>使用Nunjucks</h3><hr>
+<h3 id="使用MVC"><a href="#使用MVC" class="headerlink" title="使用MVC"></a>使用MVC</h3><hr>
+<h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><hr>
+<h3 id="使用Sequellize"><a href="#使用Sequellize" class="headerlink" title="使用Sequellize"></a>使用Sequellize</h3><hr>
+<h3 id="建立model"><a href="#建立model" class="headerlink" title="建立model"></a>建立model</h3><hr>
+<h2 id="mocha"><a href="#mocha" class="headerlink" title="mocha"></a>mocha</h2><hr>
+<h3 id="编写测试"><a href="#编写测试" class="headerlink" title="编写测试"></a>编写测试</h3><hr>
+<h3 id="异步测试"><a href="#异步测试" class="headerlink" title="异步测试"></a>异步测试</h3><hr>
+<h2 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h2><hr>
+<h3 id="使用ws"><a href="#使用ws" class="headerlink" title="使用ws"></a>使用ws</h3><hr>
+<h3 id="编写聊天室"><a href="#编写聊天室" class="headerlink" title="编写聊天室"></a>编写聊天室</h3><hr>
+<h2 id="REST"><a href="#REST" class="headerlink" title="REST"></a>REST</h2><hr>
+<h3 id="编写REST-API"><a href="#编写REST-API" class="headerlink" title="编写REST API"></a>编写REST API</h3><hr>
+<h3 id="开发REST-API"><a href="#开发REST-API" class="headerlink" title="开发REST API"></a>开发REST API</h3><hr>
+<h2 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h2><hr>
+<h3 id="单向绑定"><a href="#单向绑定" class="headerlink" title="单向绑定"></a>单向绑定</h3><hr>
+<h3 id="双向绑定"><a href="#双向绑定" class="headerlink" title="双向绑定"></a>双向绑定</h3><hr>
+<h3 id="同步DOM结构"><a href="#同步DOM结构" class="headerlink" title="同步DOM结构"></a>同步DOM结构</h3><hr>
+<h3 id="集成API"><a href="#集成API" class="headerlink" title="集成API"></a>集成API</h3><hr>
+<h3 id="在线电子表格"><a href="#在线电子表格" class="headerlink" title="在线电子表格"></a>在线电子表格</h3><hr>
+<h1 id="自动化工具"><a href="#自动化工具" class="headerlink" title="自动化工具"></a>自动化工具</h1><hr>
+<h1 id="期末总结"><a href="#期末总结" class="headerlink" title="期末总结"></a>期末总结</h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/10/23/JavaScript简要学习/" data-id="ciz5et7wc000a8vfyb3hg0uw7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -234,7 +445,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ES6/">ES6</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NPM/">NPM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openlayers/">Openlayers</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端构建/">前端构建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端测试/">前端测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端规范/">前端规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/正则表达式/">正则表达式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本控制/">版本控制</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ES6/">ES6</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NPM/">NPM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openlayers/">Openlayers</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端构建/">前端构建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端测试/">前端测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端规范/">前端规范</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/正则表达式/">正则表达式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本控制/">版本控制</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统测试/">系统测试</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -243,7 +454,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESLint/">ESLint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NPM/">NPM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NightWatch/">NightWatch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openlayers/">Openlayers</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Selenium/">Selenium</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macports/">macports</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/作用域/">作用域</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式/">正则表达式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本回退/">版本回退</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统测试/">系统测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闭包/">闭包</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ESLint/">ESLint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NPM/">NPM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NightWatch/">NightWatch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Openlayers/">Openlayers</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Selenium/">Selenium</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macports/">macports</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/作用域/">作用域</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式/">正则表达式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本回退/">版本回退</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统测试/">系统测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闭包/">闭包</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -252,7 +463,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/ESLint/" style="font-size: 10px;">ESLint</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/NPM/" style="font-size: 10px;">NPM</a> <a href="/tags/NightWatch/" style="font-size: 10px;">NightWatch</a> <a href="/tags/Openlayers/" style="font-size: 20px;">Openlayers</a> <a href="/tags/Selenium/" style="font-size: 10px;">Selenium</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/macports/" style="font-size: 10px;">macports</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/正则表达式/" style="font-size: 10px;">正则表达式</a> <a href="/tags/版本回退/" style="font-size: 10px;">版本回退</a> <a href="/tags/系统测试/" style="font-size: 10px;">系统测试</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+      <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/ESLint/" style="font-size: 10px;">ESLint</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/NPM/" style="font-size: 10px;">NPM</a> <a href="/tags/NightWatch/" style="font-size: 10px;">NightWatch</a> <a href="/tags/Openlayers/" style="font-size: 20px;">Openlayers</a> <a href="/tags/Selenium/" style="font-size: 10px;">Selenium</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/macports/" style="font-size: 10px;">macports</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/正则表达式/" style="font-size: 10px;">正则表达式</a> <a href="/tags/版本回退/" style="font-size: 10px;">版本回退</a> <a href="/tags/系统测试/" style="font-size: 10px;">系统测试</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
     </div>
   </div>
 
@@ -261,7 +472,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -285,11 +496,11 @@
           </li>
         
           <li>
-            <a href="/2016/09/01/正则表达式学习/">正则表达式学习</a>
+            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
           </li>
         
           <li>
-            <a href="/2016/09/01/Git在本地及远程仓库中实现版本回退/">Git在本地及远程仓库中实现版本回退</a>
+            <a href="/2016/09/01/正则表达式学习/">正则表达式学习</a>
           </li>
         
       </ul>
@@ -304,7 +515,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2016 TuTu<br>
+      &copy; 2017 TuTu<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
